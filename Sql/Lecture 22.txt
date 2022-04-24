@@ -1,0 +1,45 @@
+
+90). Write a query to display the degree id, degree name, fees along sum of marks scored by the students in the college each subject.
+ > select d.degree_id,d.degree_name,d.fees,sum(e.marks) from
+ degree_details as d
+ inner join 
+enrollment as e 
+on d.degree_id=e.deg_id 
+group by degree_id,degree_name;
++-----------+------------------------+-----------+--------------+
+| degree_id | degree_name            | fees      | sum(e.marks) |
++-----------+------------------------+-----------+--------------+
+|      5007 | Phd Business           |  90000.00 |          226 |
+|      5010 | MD                     | 500000.00 |          117 |
+|      5002 | Bachelor Of Business   | 600000.00 |           82 |
+|      5003 | Master Of Business     | 500000.00 |           45 |
+|      5004 | Bachelor Of Technology | 400000.00 |          148 |
+|      5001 | Master Of Commerce     | 250000.00 |          103 |
+|      5005 | Master Of Technology   | 100000.00 |           79 |
+|      5009 | MBBS                   | 100000.00 |           30 |
++-----------+------------------------+-----------+--------------+
+
+ Write a query to display the degree id, degree name, fees along sum of marks scored by the students in the college each subject.?
+ > select d.degree_id,d.degree_name,d.fees,sum(e.marks) from 
+degree_details as d
+ left join 
+enrollment as e 
+on d.degree_id=e.deg_id 
+group by degree_id,degree_name;
++-----------+----------------------------+-----------+--------------+
+| degree_id | degree_name                | fees      | sum(e.marks) |
++-----------+----------------------------+-----------+--------------+
+|      5000 | Bachelor Of Commerce       | 200000.00 |         NULL |
+|      5001 | Master Of Commerce         | 250000.00 |          103 |
+|      5002 | Bachelor Of Business       | 600000.00 |           82 |
+|      5003 | Master Of Business         | 500000.00 |           45 |
+|      5004 | Bachelor Of Technology     | 400000.00 |          148 |
+|      5005 | Master Of Technology       | 100000.00 |           79 |
+|      5006 | Phd Technology             | 300000.00 |         NULL |
+|      5007 | Phd Business               |  90000.00 |          226 |
+|      5008 | Phd Commerce               |  50000.00 |         NULL |
+|      5009 | MBBS                       | 100000.00 |           30 |
+|      5010 | MD                         | 500000.00 |          117 |
+|      5011 | Associate Bechlore Physics |  75000.00 |         NULL |
++-----------+----------------------------+-----------+--------------+
+======================================================================================================================================================

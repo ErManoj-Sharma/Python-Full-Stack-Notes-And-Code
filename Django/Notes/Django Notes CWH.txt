@@ -1,0 +1,197 @@
+To install Django :-
+-> pip install django
+========================
+To check Django Version :-
+-> python -m django --version
+=============================
+To see django-admin options:-
+-> django-admin
+Type 'django-admin help <subcommand>' for help on a specific subcommand.
+
+Available subcommands:
+
+[django]
+    check
+    compilemessages
+    createcachetable
+    dbshell
+    diffsettings
+    dumpdata
+    flush
+    inspectdb
+    loaddata
+    makemessages
+    makemigrations
+    migrate
+    runserver
+    sendtestemail
+    shell
+    showmigrations
+    sqlflush
+    sqlmigrate
+    sqlsequencereset
+    squashmigrations
+    startapp
+    startproject
+    test
+    testserver
+Note that only Django core commands are listed as settings are not properly configured .
+=========================================================================================
+To Create New Project
+-> django-admin startproject [Project-Name]
+It will create a new folder as name of project 
+|
++-> [Project-Name folder]
+|	|
+|	+-> settings.py
+|	|
+|	+-> urls.py
+|	|
+|	+-> wsgi.py
+|	|
+|	+-> asgi.py
+|	|
+|	+-> __init__.py 
+|
++-> manage.py
+======================================
+To create New Application in the Main-Project 
+1.) go to the directory where manage.py is located 
+-> py manage.py startapp [ Application-Name ]
+It will create a new folder named as 'Application-Name'
+|
++-> [Application-Name folder]
+|	|
+|	+-> admin.py
+|	|
+|	+-> apps.py
+|	|
+|	+-> models.py
+|	|
+|	+-> views.py
+|	|
+|	+-> __init__.py 
+|
++-> [Project-Name folder]
+|	|
+|	+-> settings.py
+|	|
+|	+-> urls.py
+|	|
+|	+-> wsgi.py
+|	|
+|	+-> asgi.py
+|	|
+|	+-> __init__.py 
+|
++-> manage.py
+==============================================================
+To add Templates{ HTML files }
+1.) go to directory where manage.py is located 
+2.) create directory templates.
+3.) add all your html files in this directory .
+|
++-> [Application-Name folder]
+|	|
+|	+-> admin.py
+|	|
+|	+-> apps.py
+|	|
+|	+-> models.py
+|	|
+|	+-> views.py
+|	|
+|	+-> __init__.py 
+|
++-> templates
+|	|
+|	+-> index.html
+|	|
+|	+-> *.html		
+|
++-> [Project-Name folder]
+|	|
+|	+-> settings.py
+|	|
+|	+-> urls.py
+|	|
+|	+-> wsgi.py
+|	|
+|	+-> asgi.py
+|	|
+|	+-> __init__.py 
+|
++-> manage.py
+===================================================================
+To add CSS and Images 
+1.) go to directory where manage.py is located 
+2.) create directory static.
+3.) create two sub directory css and images.
+4.) add all your css and images  files in their directories .
+|
++-> [Application-Name folder]
+|	|
+|	+-> admin.py
+|	|
+|	+-> apps.py
+|	|
+|	+-> models.py
+|	|
+|	+-> views.py
+|	|
+|	+-> __init__.py 
+|	|	
+|	+-> forms.py
+|
++-> templates
+|	|
+|	+-> index.html
+|	|
+|	+-> *.html		
+|
++-> [Project-Name folder]
+|	|
+|	+-> settings.py
+|	|
+|	+-> urls.py
+|	|
+|	+-> wsgi.py
+|	|
+|	+-> asgi.py
+|	|
+|	+-> __init__.py 
+|
++-> static
+|	|
+|	+-> css
+|	|	
+|	+-> images 
+|
++-> manage.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

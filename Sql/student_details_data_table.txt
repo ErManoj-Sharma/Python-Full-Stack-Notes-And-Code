@@ -1,0 +1,54 @@
+INSERT INTO STUDENT_DATA(First_Name,Last_name,city,age,admission_date) values 
+('Akash','Kumar','Jaipur',24,'2020-03-28'),
+('Aaishwarya','Ray','Mumbai',32,'2020-05-29'),
+('Abhay','Chander','Mumbai',27,'2019-08-07'),
+('Anagha','Ahuja','Chennai',22,'2018-12-12'),
+('Bishwas','Bora','Ahmedabad',44,'2015-02-01'),
+('Bimla','Bhatt','Ahmedabad',21,'2021-03-21'),
+('Brijesh','Kumar','Jaipur',22,'2021-01-01'),
+('Arjun','Shet','Bangalore',19,'2020-12-31'),
+('Ramya','Bose','Bangalore',25,'2019-09-25'),
+('Sharanya','Ahuja','Mumbai',20,'2020-04-15'),
+('Suhas','Rai','Bangalore',27,'2016-05-14'),
+('Goutham','Sharma','Ahmedabad',26,'2020-07-20'),
+('Dilshan','Gupta','Jaipur',23,'2014-02-07'),
+('Sachin','Acharya','Bangalore',22,'2020-01-01'),
+('Tanveer','Ahmed','Chennai',23,'2019-05-09'),
+('Rupali','Gupta','Chennai',21,'2020-06-23'),
+('Deepika','Verma','Ahmedabad',26,'2017-08-22'),
+('Deepika','Chatterjee','Ahmedabad',29,'2020-11-05');
+
+
+
+
+insert into degree_details(degree_name,length_of_course,fees,min_marks) values
+('Bachelor Of Commerce',3,200000,35),
+('Master Of Commerce',3,250000,40),
+('Bachelor Of Business',3,600000,35),
+('Master Of Business',3,500000,50),
+('Bachelor Of Technology',4,400000,35),
+('Master Of Technology',3,100000,40),
+('Phd Technology',5,300000,50),
+('Phd Business',5,90000,50),
+('Phd Commerce',4,50000,45),
+('MBBS',5,100000,40),
+('MD',4,500000,35);
+
+
+
+INSERT INTO ENROLLMENT(SID,MARKS,Deg_ID) VALUES
+(1,99,5007),
+(2,66,5007),
+(3,76,5010),
+(5,26,5002),
+(6,45,5003),
+(7,81,5004),
+(8,31,5004),
+(9,28,5001),
+(11,56,5002),
+(12,79,5005),
+(13,61,5007),
+(14,30,5009),
+(15,41,5010),
+(16,75,5001);
+

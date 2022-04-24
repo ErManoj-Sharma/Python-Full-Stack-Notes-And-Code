@@ -1,0 +1,8 @@
+fptr=open("emp.txt",'r')
+print("the name of file ",fptr.name)
+print("the mode of file ",fptr.mode)
+print("the file is closed ",fptr.closed)
+print("the file is readable : ",fptr.readable())
+print("the file is writable : ",fptr.writable())
+fptr.close()
+print("the file is closed : ",fptr.closed)

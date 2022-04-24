@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{%extends 'MyApp/parent.html'%}
+<html lang="en" dir="ltr">
+  <body>
+    <center>
+      {%block for_child%}
+        <h1 style="color:blue">Do you want to delete?</h1>
+        <form  method="post">
+          {%csrf_token%}
+          <input type="submit" class="btn btn-danger" value="yes">
+          <a href="/{{employee.id}}" class="btn btn-success">No</a>
+        </form>
+      {%endblock%}
+    </center>
+  </body>
+</html>

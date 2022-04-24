@@ -1,0 +1,138 @@
+Q.46
+waq to display id,name  of course whose course starts from 'bechlore' ?
+ > select degree_id,degree_name from degree_details where degree_name  rlike '^bachelor';
+ > select degree_id,degree_name from degree_details where degree_name  like 'bachelor%';
+
++-----------+------------------------+
+| degree_id | degree_name            |
++-----------+------------------------+
+|      5000 | Bachelor Of Commerce   |
+|      5002 | Bachelor Of Business   |
+|      5004 | Bachelor Of Technology |
++-----------+------------------------+
+
+waq to display id,name  of course whose course contain  'of' ?
+ > select degree_id,degree_name from degree_details where degree_name  like '%of%';
+ > select degree_id,degree_name from degree_details where degree_name  rlike '[a-z A-Z]* of [a-z A-Z]*';
+ > select degree_id,degree_name from degree_details where degree_name  regexp ' of ';
++-----------+------------------------+
+| degree_id | degree_name            |
++-----------+------------------------+
+|      5000 | Bachelor Of Commerce   |
+|      5001 | Master Of Commerce     |
+|      5002 | Bachelor Of Business   |
+|      5003 | Master Of Business     |
+|      5004 | Bachelor Of Technology |
+|      5005 | Master Of Technology   |
++-----------+------------------------+
+
+waq to display id,name  of course which ends this 'thechnology'  ?
+> select degree_id,degree_name from degree_details where degree_name  rlike 'technology$';7
+> select degree_id,degree_name from degree_details where degree_name  like '%technology';
++-----------+------------------------+
+| degree_id | degree_name            |
++-----------+------------------------+
+|      5004 | Bachelor Of Technology |
+|      5005 | Master Of Technology   |
+|      5006 | Phd Technology         |
++-----------+------------------------+
+
+waq to display id,name  of course where 3rd char of degree name is 'd' or first char is 'a'?
+ > select degree_id,degree_name from degree_details where degree_name  like 'a%' or degree_name like '__d%';
+ > select degree_id,degree_name from degree_details where degree_name  rlike '^a' or degree_name rlike '..d' ;
++-----------+----------------------------+
+| degree_id | degree_name                |
++-----------+----------------------------+
+|      5006 | Phd Technology             |
+|      5007 | Phd Business               |
+|      5008 | Phd Commerce               |
+|      5011 | Associate Bechlore Physics |
++-----------+----------------------------+
+waq to display id,name  of course where 4th char  and 3rd char from last is 'lo'?
+> select degree_id,degree_name from degree_details where degree_name  rlike 'l...$' and degree_name rlike 'o..$' ;
+> select degree_id,degree_name from degree_details where degree_name  rlike 'lo..$' ;
+> select degree_id,degree_name from degree_details where degree_name  like '%l___' and degree_name like '%o__' ;
+> select degree_id,degree_name from degree_details where degree_name  like '%lo__';
++-----------+------------------------+
+| degree_id | degree_name            |
++-----------+------------------------+
+|      5004 | Bachelor Of Technology |
+|      5005 | Master Of Technology   |
+|      5006 | Phd Technology         |
++-----------+------------------------+
+
+waq to display details of course that contain 3 words in its name ?
+ > select degree_id,degree_name from degree_details where degree_name  rlike '[a-z A-Z 0-9]+ [a-z A-Z 0-9]+ [a-z A-Z 0-9]+' and degree_name not rlike '[a-z A-Z]+ [a-z A-Z]+ [a-z A-Z]+ [a-z A-Z]+' ; 
+ > select degree_id,degree_name from degree_details where degree_name  like '% % %'  ;
++-----------+----------------------------+
+| degree_id | degree_name                |
++-----------+----------------------------+
+|      5000 | Bachelor Of Commerce       |
+|      5001 | Master Of Commerce         |
+|      5002 | Bachelor Of Business       |
+|      5003 | Master Of Business         |
+|      5004 | Bachelor Of Technology     |
+|      5005 | Master Of Technology       |
+|      5011 | Associate Bechlore Physics |
++-----------+----------------------------+
+
+waq to display details of course that contain only 2 words in its name ?
+ > select degree_id,degree_name from degree_details where degree_name  like '% %' and degree_name not like '% % %';
+ > select degree_id,degree_name from degree_details where degree_name  rlike '[a-z A-Z 0-9]+ [a-z A-Z 0-9]+' and degree_name not rlike '[a-z A-Z]+ [a-z A-Z]+ [a-z A-Z]' ;
++-----------+----------------+
+| degree_id | degree_name    |
++-----------+----------------+
+|      5006 | Phd Technology |
+|      5007 | Phd Business   |
+|      5008 | Phd Commerce   |
++-----------+----------------+
+
+waq to display details of course that contain only 2 words in its name ?
+ > select* from degree_details where degree_name like '% %';
+ >select degree_id,degree_name from degree_details where degree_name  rlike '[a-z A-Z 0-9]+ [a-z A-Z 0-9]+';
++-----------+----------------------------+------------------+-----------+-----------+
+| Degree_ID | Degree_Name                | Length_Of_Course | Fees      | min_marks |
++-----------+----------------------------+------------------+-----------+-----------+
+|      5000 | Bachelor Of Commerce       |                3 | 200000.00 |        35 |
+|      5001 | Master Of Commerce         |                3 | 250000.00 |        40 |
+|      5002 | Bachelor Of Business       |                3 | 600000.00 |        35 |
+|      5003 | Master Of Business         |                3 | 500000.00 |        50 |
+|      5004 | Bachelor Of Technology     |                4 | 400000.00 |        35 |
+|      5005 | Master Of Technology       |                3 | 100000.00 |        40 |
+|      5006 | Phd Technology             |                5 | 300000.00 |        50 |
+|      5007 | Phd Business               |                5 |  90000.00 |        50 |
+|      5008 | Phd Commerce               |                4 |  50000.00 |        45 |
+|      5011 | Associate Bechlore Physics |                3 |  75000.00 |        35 |
++-----------+----------------------------+------------------+-----------+-----------+
+
+waq to display the details of course that have atmost 2 words ?
+ MySQL  localhost:3306 ssl  m  SQL > select* from degree_details where degree_name like '%' and degree_name not like '% % %';
+ > select degree_id,degree_name from degree_details where degree_name  rlike '[a-z A-Z 0-9]+' and degree_name not rlike '[a-z A-Z]+ [a-z A-Z]+ [a-z A-Z]+' ;
++-----------+----------------+------------------+-----------+-----------+
+| Degree_ID | Degree_Name    | Length_Of_Course | Fees      | min_marks |
++-----------+----------------+------------------+-----------+-----------+
+|      5006 | Phd Technology |                5 | 300000.00 |        50 |
+|      5007 | Phd Business   |                5 |  90000.00 |        50 |
+|      5008 | Phd Commerce   |                4 |  50000.00 |        45 |
+|      5009 | MBBS           |                5 | 100000.00 |        40 |
+|      5010 | MD             |                4 | 500000.00 |        35 |
++-----------+----------------+------------------+-----------+-----------+
+
+
+waq to display name of student that have exacctly 5 char in their name?
+ > select* from student_data where first_name rlike '^.....$';
+ > select* from student_data where first_name like '_____';
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+======================================================================================================
+
+

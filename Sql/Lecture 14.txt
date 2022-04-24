@@ -1,0 +1,347 @@
+Q.20 Display all data of student table ?
+ MySQL  localhost:3306 ssl  m  SQL > select*from student_data;
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | PASS    |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | PASS    |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | Deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+
+===================================================================================================================================
+Q.21 display all the data in degree_details in descending order of min_marks ?
+ MySQL  localhost:3306 ssl  m  SQL > select * from degree_details order by min_marks desc;
++-----------+----------------------------+------------------+-----------+-----------+
+| Degree_ID | Degree_Name                | Length_Of_Course | Fees      | min_marks |
++-----------+----------------------------+------------------+-----------+-----------+
+|      5003 | Master Of Business         |                3 | 500000.00 |        50 |
+|      5006 | Phd Technology             |                5 | 300000.00 |        50 |
+|      5007 | Phd Business               |                5 |  90000.00 |        50 |
+|      5008 | Phd Commerce               |                4 |  50000.00 |        45 |
+|      5001 | Master Of Commerce         |                3 | 250000.00 |        40 |
+|      5005 | Master Of Technology       |                3 | 100000.00 |        40 |
+|      5009 | MBBS                       |                5 | 100000.00 |        40 |
+|      5000 | Bachelor Of Commerce       |                3 | 200000.00 |        35 |
+|      5002 | Bachelor Of Business       |                3 | 600000.00 |        35 |
+|      5004 | Bachelor Of Technology     |                4 | 400000.00 |        35 |
+|      5010 | MD                         |                4 | 500000.00 |        35 |
+|      5011 | Associate Bechlore Physics |                3 |  75000.00 |        35 |
++-----------+----------------------------+------------------+-----------+-----------+
+
+==================================================================================================
+Q.22 display student id and first 3 letter of student name ?
+ > select id ,substring(first_name,1,3)from student_data;
+ > select id ,substring(first_name,3)from student_data ;       // from 3rd char to last 
+substring(string ,starting point , place from starting point )
++----+---------------------------+
+| id | substring(first_name,1,3) |
++----+---------------------------+
+|  1 | Aka                       |
+|  2 | Aai                       |
+|  3 | Abh                       |
+|  4 | Ana                       |
+|  5 | Bis                       |
+|  6 | Bim                       |
+|  7 | Bri                       |
+|  8 | Arj                       |
+|  9 | Ram                       |
+| 10 | Sha                       |
+| 11 | Suh                       |
+| 12 | Gou                       |
+| 13 | Dil                       |
+| 14 | Sac                       |
+| 15 | Tan                       |
+| 16 | Rup                       |
+| 17 | Dee                       |
+| 18 | Dee                       |
+| 19 | Zhy                       |
++----+---------------------------+
+
+===================================================================================================
+Q.23 display result of student whose id is 15 ,in the result relace 'v' wit 'V'?
+ select*from student_data where id=15;
++----+------------+-----------+---------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City    | Age | Admission_Date | Result |
++----+------------+-----------+---------+-----+----------------+--------+
+| 15 | Tanveer    | Ahmed     | Chennai |  23 | 2019-05-09     | PASS   |
++----+------------+-----------+---------+-----+----------------+--------+
+  > select id ,replace(first_name,'v','V'),last_name,city,age,admission_date,result  from student_data where id=15;
++----+-----------------------------+-----------+---------+-----+----------------+--------+
+| id | replace(first_name,'v','V') | last_name | city    | age | admission_date | result |
++----+-----------------------------+-----------+---------+-----+----------------+--------+
+| 15 | TanVeer                     | Ahmed     | Chennai |  23 | 2019-05-09     | PASS   |
++----+-----------------------------+-----------+---------+-----+----------------+--------+
+===========================================================================================================
+Q.24 display the first name as FN in upper ,of students whose last name is "sharma" ,also display the position of lettter "a" in first name ?
+ MySQL  localhost:3306 ssl  m  SQL > select first_name,instr(first_name,'a') from student_data where last_name='sharma';
+ # instr(string,'letter to find') ==>> to find letter in string.
+
++------------+-----------------------+
+| first_name | instr(first_name,'a') |
++------------+-----------------------+
+| Goutham    |                     6 |
++------------+-----------------------+
+ > select upper(first_name),instr(first_name,'a') from student_data where last_name='sharma';
++-------------------+-----------------------+
+| upper(first_name) | instr(first_name,'a') |
++-------------------+-----------------------+
+| GOUTHAM           |                     6 |
++-------------------+-----------------------+
+L > select upper(first_name) as FN,instr(first_name,'a') from student_data where last_name='sharma';
++---------+-----------------------+
+| FN      | instr(first_name,'a') |
++---------+-----------------------+
+| GOUTHAM |                     6 |
++---------+-----------------------+
+==================================================================================================================================================
+
+Q.25 display last name of student in lower case whose first name is aaishwarya .also display lentgth of hte last name ?
+ > select first_name,lower(last_name),char_length(last_name) from student_data where first_name='aaishwarya';
+# char_length(string)   ==>> to find length of string.
+
++------------+------------------+------------------------+
+| first_name | lower(last_name) | char_length(last_name) |
++------------+------------------+------------------------+
+| Aaishwarya | ray              |                      3 |
++------------+------------------+------------------------+
+============================================================================================================================================
+
+Q.26 diaplay the details of the student eho are from ahemdabad city in  ascending order of first name and descending order of id.display last name in reverse ?
+
+ > select id,first_name,reverse(last_name),city,age,admission_date,result from student_data where city="ahmedabad" order by first_name,id desc;
++----+------------+--------------------+-----------+-----+----------------+---------+
+| id | first_name | reverse(last_name) | city      | age | admission_date | result  |
++----+------------+--------------------+-----------+-----+----------------+---------+
+|  6 | Bimla      | ttahB              | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  5 | Bishwas    | aroB               | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+| 18 | Deepika    | eejrettahC         | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 17 | Deepika    | amreV              | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 12 | Goutham    | amrahS             | Ahmedabad |  26 | 2020-07-20     | PASS    |
++----+------------+--------------------+-----------+-----+----------------+---------+
+======================================================================================================================================================
+
+Q.27 write query to display first name of student in uppercase?
+> select upper(first_name)from student_data ;
++-------------------+
+| upper(first_name) |
++-------------------+
+| AKASH             |
+| AAISHWARYA        |
+| ABHAY             |
+| ANAGHA            |
+| BISHWAS           |
+| BIMLA             |
+| BRIJESH           |
+| ARJUN             |
+| RAMYA             |
+| SHARANYA          |
+| SUHAS             |
+| GOUTHAM           |
+| DILSHAN           |
+| SACHIN            |
+| TANVEER           |
+| RUPALI            |
+| DEEPIKA           |
+| DEEPIKA           |
+| ZHYN              |
++-------------------+
+=======================================================================================================
+
+Q.28 write a query to display full name of student as complete name  in lower case ?
+ MySQL  localhost:3306 ssl  m  SQL > select lower(concat(first_name," ",last_name)) as complete_name from student_data ;
+# concat('String',' ','string')  ===> String string
++--------------------+
+| complete_name      |
++--------------------+
+| akash kumar        |
+| aaishwarya ray     |
+| abhay chander      |
+| anagha ahuja       |
+| bishwas bora       |
+| bimla bhatt        |
+| brijesh kumar      |
+| arjun shet         |
+| ramya bose         |
+| sharanya ahuja     |
+| suhas rai          |
+| goutham sharma     |
+| dilshan gupta      |
+| sachin acharya     |
+| tanveer ahmed      |
+| rupali gupta       |
+| deepika verma      |
+| deepika chatterjee |
+| zhyn jackman       |
++--------------------+
+=============================================================================================================
+ 
+Q.29 waq to display the unique cities to which the students belong to in ascending order of city?
+ SQL > select distinct city from student_data order by city ;
++-----------+
+| city      |
++-----------+
+| Ahmedabad |
+| Bangalore |
+| Banglore  |
+| Chennai   |
+| Jaipur    |
+| Mumbai    |
++-----------+
+==================================================================================================
+Q. 30 waq to display the degree offerd , oreder them in descending order of min_marks ?
+ > select degree_name,min_marks from degree_details order by min_marks desc;
++----------------------------+-----------+
+| degree_name                | min_marks |
++----------------------------+-----------+
+| Master Of Business         |        50 |
+| Phd Technology             |        50 |
+| Phd Business               |        50 |
+| Phd Commerce               |        45 |
+| Master Of Commerce         |        40 |
+| Master Of Technology       |        40 |
+| MBBS                       |        40 |
+| Bachelor Of Commerce       |        35 |
+| Bachelor Of Business       |        35 |
+| Bachelor Of Technology     |        35 |
+| MD                         |        35 |
+| Associate Bechlore Physics |        35 |
++----------------------------+-----------+
+===========================================================================================================
+
+Q.31 waq to display the details of studetns who are more than 23 years age and first name has exactly 5 char ?
+ select * from student_data  where age >23 && char_length(first_name)=5;
++----+------------+-----------+-----------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result |
++----+------------+-----------+-----------+-----+----------------+--------+
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS   |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS   |
+|  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL   |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS   |
++----+------------+-----------+-----------+-----+----------------+--------+
+=======================================================================================================
+
+Q.32 waq to display the name of students who are 22 yr old or younger?
+ MySQL  localhost:3306 ssl  m  SQL > select first_name,last_name,age from student_data  where age<=22;
++------------+-----+
+| first_name | age |
++------------+-----+
+| Anagha     |  22 |
+| Bimla      |  21 |
+| Brijesh    |  22 |
+| Arjun      |  19 |
+| Sharanya   |  20 |
+| Sachin     |  22 |
+| Rupali     |  21 |
++------------+-----+
+================================================================================================================
+Q.33 waq to display the name of student who are not from channai?
+ MySQL  localhost:3306 ssl  m  SQL > select first_name from student_data  where city!="chennai";
++------------+
+| first_name |
++------------+
+| Akash      |
+| Aaishwarya |
+| Abhay      |
+| Bishwas    |
+| Bimla      |
+| Brijesh    |
+| Arjun      |
+| Ramya      |
+| Sharanya   |
+| Suhas      |
+| Goutham    |
+| Dilshan    |
+| Sachin     |
+| Deepika    |
+| Deepika    |
+| Zhyn       |
++------------+
+
+====================================================================================================
+Q.34 waq to display the deetails of students who are 22 yr old or from mumbai?
+> select * from student_data  where age=22 or city="mumbai";
++----+------------+-----------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++----+------------+-----------+-----------+-----+----------------+---------+
+|  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS    |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS    |
+|  4 | Anagha     | Ahuja     | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |
+| 10 | Sharanya   | Ahuja     | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |
++----+------------+-----------+-----------+-----+----------------+---------+
+====================================================================================
+
+Q.35 waq to display name and age of student who are from banglore and of age 27?
+ > select first_name ,age from student_data  where age=27 and city="bangalore";
++------------+-----+
+| first_name | age |
++------------+-----+
+| Suhas      |  27 |
++------------+-----+
+=============================================================================================
+
+Q36.waq to display name and age of students from jaipur, mumbai, channai?
+ > select first_name ,age,city from student_data  where city in('jaipur','chennai','mumbai');
+ > select first_name ,age,city from student_data  where city="jaipur" or city="chennai" or city="mumbai";
++------------+-----+---------+
+| first_name | age | city    |
++------------+-----+---------+
+| Akash      |  24 | Jaipur  |
+| Aaishwarya |  32 | Mumbai  |
+| Abhay      |  27 | Mumbai  |
+| Anagha     |  22 | Chennai |
+| Brijesh    |  22 | Jaipur  |
+| Sharanya   |  20 | Mumbai  |
+| Dilshan    |  23 | Jaipur  |
+| Tanveer    |  23 | Chennai |
+| Rupali     |  21 | Chennai |
++------------+-----+---------+
+
+waq to display name and age of students who are not from jaipur, mumbai, channai?
+
+ > select first_name ,age,city from student_data  where city not  in('jaipur','chennai','mumbai');
++------------+-----+-----------+
+| first_name | age | city      |
++------------+-----+-----------+
+| Bishwas    |  44 | Ahmedabad |
+| Bimla      |  21 | Ahmedabad |
+| Arjun      |  19 | Bangalore |
+| Ramya      |  25 | Bangalore |
+| Suhas      |  27 | Bangalore |
+| Goutham    |  26 | Ahmedabad |
+| Sachin     |  22 | Bangalore |
+| Deepika    |  26 | Ahmedabad |
+| Deepika    |  29 | Ahmedabad |
+| Zhyn       |  24 | Banglore  |
++------------+-----+-----------+
+================================================================================================================
+
+Q.37 waq to display id, fullname, marks of student  who are more than 22 yr old and marks is gretaher than 90 ?
+> select distinct id ,concat(first_name,' ',last_name)as Full_Name ,marks from student_data,enrollment
+where age>=22 and marks>90 and id=sid;
++----+-------------+-------+
+| id | Full_Name   | marks |
++----+-------------+-------+
+|  1 | Akash Kumar |    99 |
++----+-------------+-------+
+=======================================================================================================
+
+
+

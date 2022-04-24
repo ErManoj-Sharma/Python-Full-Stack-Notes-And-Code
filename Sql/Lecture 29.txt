@@ -1,0 +1,219 @@
+123). Write a procedure to display first N even numbers by loop.
+DELIMITER &&
+create procedure even_num(in n int)
+BEGIN
+declare counter int default 0;
+declare answer int default 2;
+declare str varchar(255);
+set str='';
+if n>=1 then
+	label1:loop
+	set str=concat(str, answer,' ');
+    set counter =counter+1;
+    set answer=answer+2;
+    if counter=n then
+		leave label1 ;
+	end if;
+    end loop;
+else 
+	select'unable to display';
+end if;
+select str;
+END &&
+DELIMITER ;
+ 
+> call even_num(5);
++-------------+
+| str         |
++-------------+
+| 2 4 6 8 10  |
++-------------+
+ > call even_num(10);
++----------------------------+
+| str                        |
++----------------------------+
+| 2 4 6 8 10 12 14 16 18 20  |
++----------------------------+
+ > call even_num(15);
++-------------------------------------------+
+| str                                       |
++-------------------------------------------+
+| 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30  |
++-------------------------------------------+
+============================================================================================================
+124). Genrate odd number by while loop?
+DELIMITER &&
+CREATE PROCEDURE Odd_Num_Generator(IN N INT)
+BEGIN
+Declare Counter int default 0;
+Declare Answer int default 1;
+Declare str varchar(255) ;
+SET str='';
+WHILE Counter!=N DO
+SET str = concat (str, answer,' ');
+SET Counter = Counter + 1;
+SET Answer = Answer + 2;
+END WHILE;
+Select str;
+END &&
+DELIMITER;
+ > call Odd_num(5);
++------------+
+| str        |
++------------+
+| 1 3 5 7 9  |
++------------+
+==================================================================
+Repeat Loop:
+Loop Label: REPEAT
+Statement 1;
+Statement 2;
+UNTIL Condition
+END REPEAT;
+====================================================================
+125). display horizontal list of last name of student from student data table?
+
+CURSOR: It helps us to iterate through the set of rows returned by the query one after the
+other. Every cursor is assigned to/points to a query. Cursor and Handler should be declared
+only after all the variables have been declared. must be declared
+DECLARE Cursor name CURSOR Query;
+OPEN Cursor name;
+CLOSE Cursor name;
+
+DELIMITER &&
+CREATE PROCEDURE LN_Appender()
+BEGIN
+DECLARE str varchar(1000) DEFAULT ' ';
+DECLARE Holder varchar(50) Default ' ';
+DECLARE Indicator INT DEFAULT 0;
+DECLARE curln CURSOR FOR select Last_name from student_data;
+DECLARE Continue HANDLER FOR NOT FOUND SET Indicator=1;
+OPEN curln;
+WHILE Indicator=0 DO
+Fetch curln into Holder;
+SET str =CONCAT (str,' ',Holder);
+END WHILE;
+Select str;
+CLOSE curln;
+END &&
+ > call ln_appender();
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| str                                                                                                                                                                                 |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   Kumar Ray Chander Ahuja Bora Bhatt Kumar Shet Bose Ahuja Rai Sharma Gupta Acharya Ahmed Gupta Verma Chatterjee Jackman shakshamas thammanna qwrt Rodriguez B Bbbb Bbbbbbb Bbbbbbb |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+=================================================================================================
+
+
+ERROR HANDLING: When we get errors or warnings inside a procedure it is important for us
+to handle them carefully and decide whether to continue with the execution or exit it after
+providing appropriate error messages. Mysql provides us with Handlers for this purpose.
+DECLARE CONTINUE/EXIT HANDLER FOR ERROR CODE/ERROR NAME Statēment;
+
+SIGNAL: Returns an error or a warning.
+SIGNAL SQLSTATE 'NUMBER' SET MESSAGE TEXT = 'ERROR MESSAGE'; 
+
+=====================================================================================================================================
+125). In question 121 use Signal and resignal to check if IDs entered are actually present in the table or not. If not dispaly an error.
+
+DELIMITER &&
+CREATE PROCEDURE Assign_Grad3(IN ID_Num INT)
+BEGIN
+DECLARE Grade varchar(10);
+DECLARE Score INT;
+
+DECLARE ID_NOT_EXIST CONDITION FOR SQLSTATE '02000';
+DECLARE CONTINUE HANDLER FOR ID_NOT_EXIST
+RESIGNAL SET MESSAGE_TEXT = 'ID DOESNOT EXIST IN THE TABLE SPECIFIED or row not exist';
+SELECT marks into Score from enrollment where sid=ID_Num;
+if isnull(score) then
+signal ID_NOT_EXIST;
+END IF;
+CASE
+        When Score>90 Then
+                SET Grade = 'Grade A';
+        When Score>=75 and Score<=89 Then
+                SET Grade = 'Grade B';
+        WHEN Score>=60 and Score<=74 Then
+                SET Grade = 'Grade C';
+                                                     
+        ELSE
+                SET Grade = 'Grade D';
+END CASE;
+Select Grade;
+END &&
+DELIMITER ;
+
+
+ > call Assign_grad3(1);
++---------+
+| Grade   |
++---------+
+| Grade A |
++---------+
+1 row in set (0.0013 sec)
+
+Query OK, 0 rows affected (0.0013 sec)
+ MySQL  localhost:3306 ssl  m  SQL > call Assign_grad3(122);
+ERROR: 1643 (02000): ID DOESNOT EXIST IN THE TABLE SPECIFIED or row not exist
+==================================================================================================================================
+TRIGGERS:
+It is a stored procedure that is invoked automatically when a particular event occurs. These
+are activated on use of DML commands like INSERT, UPDATE, DELETE on preassigned tables.
+
+We need not call triggers but they are automatically invoked.
+
+Types of triggers:
+ 1. Before Insert: It is activated before insertion of data into the table.
+ 2. After Insert
+ 3. Before update
+ 4. After update
+ 5. Before Delete
+ 6. After Delete
+
+Syntax:
+CREATE TRIGGER trigger_name
+Trigger_Time Trigger_Event     //triger_time:before/after  , triger_event:insert/delete/update
+ON table_name FOR EACH ROW
+BEGIN
+Declaration_section
+Executable_section
+END;
+
+see the triggers created: SHOW TRIGGERS;
+To Delete a created Trigger: DROP TRIGGER TRIGGER_NAME;
+The new values that are inserted or updated can be accessed inside the trigger body using NEW.
+The old values that are updated or deleted can be accessed inside the trigger body using OLD.
+---------------------------------------------------------------------------------------------
+1. Before Insert: It is activated before insertion of data into the table.
+
+DELIMITER &&
+CREATE TRIGGER check_marks
+BEFORE INSERT ON ENROLLMENT FOR EACH ROW
+BEGIN
+if NEW.marks<0 THEN
+SET NEW.marks=0;
+END IF;
+END &&
+DELIMITER ;
+-----------------------------------------------------------------------------------
+ 2. After Insert
+DELIMITER &&
+CREATE TRIGGER populate_All
+AFTER INSERT ON student_master_data for each row
+BEGIN
+insert into contact_details values (NEW.Phone, NEW.email,NEW. Twitter....);
+insert into exam_details values (NEW.mark1, NEW.mark2,......, NEW.mark12); 
+insert into gov_details values (NEW.aadhar, NEW.pan,.
+END &&
+DELIMITER ;
+---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+

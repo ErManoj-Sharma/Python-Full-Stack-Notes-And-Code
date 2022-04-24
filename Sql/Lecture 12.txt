@@ -1,0 +1,129 @@
+Q.12 delete column name max_marks and add column name min_marks ?
+ MySQL  localhost:3306 ssl  student_details  SQL > describe degree_details;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| Degree_ID        | int unsigned | NO   | PRI | NULL    | auto_increment |
+| Degree_Name      | varchar(20)  | NO   |     | NULL    |                |
+| Length_Of_Course | varchar(20)  | NO   |     | NULL    |                |
+| Fees             | decimal(8,2) | YES  |     | NULL    |                |
+| max_marks        | int unsigned | NO   |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+
+ > alter table degree_details change max_marks mmin_marks int unsigned not null;
+or
+> alter table degree_details drop column max_marks;
+> alter table degree_details add column min_marks int unsigned not null;
+ 
+MySQL  localhost:3306 ssl  student_details  SQL > describe degree_details;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| Degree_ID        | int unsigned | NO   | PRI | NULL    | auto_increment |
+| Degree_Name      | varchar(20)  | NO   |     | NULL    |                |
+| Length_Of_Course | varchar(20)  | NO   |     | NULL    |                |
+| Fees             | decimal(8,2) | YES  |     | NULL    |                |
+| min_marks        | int unsigned | NO   |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+================================================================================
+Q.13 create a table named enrollment which has following attribute.
+studentid,degreeid,marks
+
+create table enrollment(
+SID int unsigned not null,
+MARKS int unsigned not null,
+DID int unsigned not null,
+foreign key (SID) references student_data(ID)        /* defineing foreign key inside */
+);
+
+> alter table enrollment add foreign key(DID) references degree_details(Degree_ID);
+
+> describe enrollment;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| SID   | int unsigned | NO   | MUL | NULL    |       |
+| MARKS | int unsigned | NO   |     | NULL    |       |
+| DID   | int unsigned | NO   | MUL | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+
+
+============================================================================================
+Q.14 deelte a column name did from enrollment table & create a new column name degid that refers degree_details(degree_ID)
+> alter table enrollment drop column DID;
+ERROR: 1828 (HY000): Cannot drop column 'DID': needed in a foreign key constraint 'enrollment_ibfk_2'
+
+> alter table enrollment drop constraint enrollment_ibfk_2;
+
+> describe enrollment;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| SID   | int unsigned | NO   | MUL | NULL    |       |
+| MARKS | int unsigned | NO   |     | NULL    |       |
+| DID   | int unsigned | NO   | MUL | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+
+ > alter table enrollment drop key did;
+ > describe enrollment;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| SID   | int unsigned | NO   | MUL | NULL    |       |
+| MARKS | int unsigned | NO   |     | NULL    |       |
+| DID   | int unsigned | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+ > alter table enrollment drop column did;
+ > describe enrollment;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| SID   | int unsigned | NO   | MUL | NULL    |       |
+| MARKS | int unsigned | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+
+/* Now Add new column with foreign key referecnce */ 
+> alter table enrollment add column Deg_ID int unsigned not null;
+> alter table enrollment add foreign key(Deg_ID) references degree_details(Degree_ID);
+> describe enrollment;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| SID    | int unsigned | NO   | MUL | NULL    |       |
+| MARKS  | int unsigned | NO   |     | NULL    |       |
+| Deg_ID | int unsigned | NO   | MUL | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+==============================================================================================
+Q.15 create a table named parents which have following attribute fathername , mothername?
+  > show tables;
++---------------------------+
+| Tables_in_student_details |
++---------------------------+
+| degree_details            |
+| enrollment                |
+| student_data              |
++---------------------------+
+
+ > create table parents( father_name varchar(20) not null, mother_name varchar(20) not null);
+ > show tables;
++---------------------------+
+| Tables_in_student_details |
++---------------------------+
+| degree_details            |
+| enrollment                |
+| parents                   |
+| student_data              |
++---------------------------+
+=====================================================================================================
+Q.16 delete the table named parents?
+
+ > drop table parents;
+ > show tables;
++---------------------------+
+| Tables_in_student_details |
++---------------------------+
+| degree_details            |
+| enrollment                |
+| student_data              |
++---------------------------+
+=========================================================================================================

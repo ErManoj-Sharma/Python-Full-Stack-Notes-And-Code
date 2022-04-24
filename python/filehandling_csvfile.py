@@ -1,0 +1,10 @@
+import csv
+fptr=open("emp.csv",'w')
+w=csv.writer(fptr)
+w.writerow(['Emp ID','Emp Name','Emp Salary','Location'])
+w.writerow([101,'ramu',15000,'goa'])
+w.writerow([102,'raju',12000,'delhi'])
+w.writerow([103,'rita',50000,'banglore'])
+w.writerow([104,'miku',22000,'bhilwara'])
+print('data inserted in csv file')
+fptr.close()

@@ -1,0 +1,271 @@
+***>47). Write a query to display details of students whose name contains 'pi' and 'De'.
+> select * from student_data where first_name rlike 'pi' and cast(first_name as binary)  rlike binary 'De' ;
+> select* from student_data where first_name like binary '%De%' and first_name like '%pi%';
++----+------------+-----------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++----+------------+-----------+-----------+-----+----------------+---------+
+| 17 | Deepika    | Verma     | Ahmedabad |  26 | 2017-08-22     | AWAITED |
++----+------------+-----------+-----------+-----+----------------+---------+
+Warning (code 1287): 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead
+ > select* from student_data where first_name like '%de%' and first_name like '%pi%';
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+note : in binary byte by byte checking take place so it is able to distingusih betwwen capital and small letter!
+=======================================================================================================================
+>48). Write a query to display the name and id of students who joined in July 2020.
+
+ > select id,first_name from student_data where admission_date like'2020-07-%' ;
++----+------------+
+| id | first_name |
++----+------------+
+| 12 | Goutham    |
++----+------------+ 
+> select id,first_name from student_data where admission_date like'2020-07-%' ;
++----+------------+
+| id | first_name |
++----+------------+
+| 12 | Goutham    |
++----+------------+
+ > select id,first_name from student_data where admission_date rlike'^2020-07-[1-3][0-9]$' ;
++----+------------+
+| id | first_name |
++----+------------+
+| 12 | Goutham    |
++----+------------+
+=======================================================================================================================
+>49). Write a query to display the name of students whose name contains consecutive a's.
+=> we can't use like to check consecutive char .
+we must use rlike for this 
+ > select id,first_name from student_data where first_name rlike'aa+' ;
+ > select id,first_name from student_data where first_name rlike'aaa*' ;
+ > select id,first_name from student_data where first_name like'%aa%' ;
++----+------------+
+| id | first_name |
++----+------------+
+|  2 | Aaishwarya |
++----+------------+
+=========================================================================================================================
+
+>50). Write a query to display the name and id of students whose name contains vowels.
+> select* from student_data where first_name like '%a%' or first_name like '%e%' or first_name like '%i%' or first_name like '%o%' or first_name like '%u%';
+> select id,first_name from student_data where first_name rlike'[a e i o u ]+' ;
++----+------------+
+| id | first_name |
++----+------------+
+|  1 | Akash      |
+|  2 | Aaishwarya |
+|  3 | Abhay      |
+|  4 | Anagha     |
+|  5 | Bishwas    |
+|  6 | Bimla      |
+|  7 | Brijesh    |
+|  8 | Arjun      |
+|  9 | Ramya      |
+| 10 | Sharanya   |
+| 11 | Suhas      |
+| 12 | Goutham    |
+| 13 | Dilshan    |
+| 14 | Sachin     |
+| 15 | Tanveer    |
+| 16 | Rupali     |
+| 17 | Deepika    |
+| 18 | deepika    |
+| 20 | rishi      |
+| 21 | tushar     |
++----+------------+
+
+
+===============================================================================================================================
+>51). Write a query to display the name and id of students whose name doesnot contain vowels.
+> select* from student_data where first_name not like '%a%'and first_name not like '%e%' and first_name not like '%i%' and first_name not  like '%o%' and first_name not like '%u%';
++----+------------+-----------+----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City     | Age | Admission_Date | Result  |
++----+------------+-----------+----------+-----+----------------+---------+
+| 19 | Zhyn       | Jackman   | Banglore |  24 | 2019-06-22     | AWAITED |
+| 22 | xyz        | qwrt      | mnbv     |  22 | 2022-04-18     | AWAITED |
++----+------------+-----------+----------+-----+----------------+---------+
+ > select id,first_name from student_data where first_name not rlike '[a e i o u ]+' ;
++----+------------+
+| id | first_name |
++----+------------+
+| 19 | Zhyn       |
+| 22 | xyz        |
++----+------------+
+===============================================================================================================================
+>52). Write a query to display the details of students whose name starts with a vowel.
+ > select id,first_name from student_data where first_name like 'a%' or first_name like 'e%' or first_name like 'i%' or first_name like 'o%' or first_name like 'u%' ;
++----+------------+
+| id | first_name |
++----+------------+
+|  1 | Akash      |
+|  2 | Aaishwarya |
+|  3 | Abhay      |
+|  4 | Anagha     |
+|  8 | Arjun      |
++----+------------+
+ > select id,first_name from student_data where first_name rlike '^[a e i o u ]' ;
++----+------------+
+| id | first_name |
++----+------------+
+|  1 | Akash      |
+|  2 | Aaishwarya |
+|  3 | Abhay      |
+|  4 | Anagha     |
+|  8 | Arjun      |
++----+------------+
+=======================================================================================================================================
+>53). Write a query to display the details of students whose name ends with a vowel.
+ > select * from student_data where first_name rlike '[a e i o u]$';
+ > select * student_data where first_name like '%a' or first_name like '%e' or first_name like '%i' or first_name like '%o' or first_name like '%u' ;
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED |
+| 23 | Emilio     | Rodriguez  | banglore  |  23 | 2020-02-23     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+======================================================================================================================================
+>54). Write a query to display the details of students whose name doesnot start and end with a vowel.
+
+ > select * from student_data where first_name not rlike '[a e i o u]$' and first_name not rlike '^[a e i o u]+';
+ > select id,first_name from student_data where first_name not like 'a%' and first_name not like 'e%' and first_name not like 'i%' and first_name not like 'o%' and first_name not like 'u%' and first_name not like 'a%' and first_name not like 'e%' and first_name not like 'i%' and first_name not like'o%' and first_name not like 'u%';
++----+------------+-----------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++----+------------+-----------+-----------+-----+----------------+---------+
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |
+| 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS    |
+| 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS    |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |
+| 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS    |
+| 19 | Zhyn       | Jackman   | Banglore  |  24 | 2019-06-22     | AWAITED |
+| 21 | tushar     | thammanna | ahmedabad |  24 | 2019-03-06     | AWAITED |
+| 22 | xyz        | qwrt      | mnbv      |  22 | 2022-04-18     | AWAITED |
++----+------------+-----------+-----------+-----+----------------+---------+
+
+
+================================================================================================================================
+>56). write a query to display the details of students whose name starts with a vowel but doesnot end with a vowel.
+ > select * from student_data where first_name not rlike '[a e i o u]$' and first_name rlike '^[a e i o u]+';
++----+------------+-----------+-----------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result |
++----+------------+-----------+-----------+-----+----------------+--------+
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS   |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS   |
+|  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL   |
++----+------------+-----------+-----------+-----+----------------+--------+
+
+====================================================================================================================================
+>55). Write a query to display the details of students whose name starts and ends with a vowel.
+ > select * from student_data where first_name rlike '[a e i o u]$' and first_name rlike '^[a e i o u]+';
++----+------------+-----------+----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City     | Age | Admission_Date | Result  |
++----+------------+-----------+----------+-----+----------------+---------+
+|  2 | Aaishwarya | Ray       | Mumbai   |  32 | 2020-05-29     | PASS    |
+|  4 | Anagha     | Ahuja     | Chennai  |  22 | 2018-12-12     | AWAITED |
+| 23 | Emilio     | Rodriguez | banglore |  23 | 2020-02-23     | AWAITED |
++----+------------+-----------+----------+-----+----------------+---------+
+===========================================================================================================
+>57). Write a query to display the name and id of student whose name starts with a consonant and ends with a vowel.
+ > select * from student_data where first_name rlike '[a e i o u]$' and first_name not rlike '^[a e i o u]+';
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+=============================================================================================================================================
+68). Write a query to display the details of students whose name starts with a vowel but doesnot end with a vowel.
+ > select * from student_data where first_name not rlike '[a e i o u]$' and first_name  rlike '^[a e i o u]+';
++----+------------+-----------+-----------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result |
++----+------------+-----------+-----------+-----+----------------+--------+
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS   |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS   |
+|  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL   |
++----+------------+-----------+-----------+-----+----------------+--------+
+===================================================================================================================
+69). Write a query to display the name and id of student whose name starts with a consonant and ends with a vowel.
+ > select * from student_data where first_name rlike '[a e i o u]$' and first_name not rlike '^[a e i o u]+';
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+============================================================================================================
+****
+nested/sub query :  writing query inside another query
+output of inner query must give only 1 column .
+****
+70). Write a query to display the details of the courses where there is zero enrollment.
+ > select distinct deg_id from enrollment; 
+> select * from degree_details where degree_id not in (select distinct deg_id from enrollment);
+
++--------+
+| deg_id |
++--------+
+|   5001 |
+|   5002 |
+|   5003 |
+|   5004 |
+|   5005 |
+|   5007 |
+|   5009 |
+|   5010 |
++--------+
++-----------+----------------------------+------------------+-----------+-----------+
+| Degree_ID | Degree_Name                | Length_Of_Course | Fees      | min_marks |
++-----------+----------------------------+------------------+-----------+-----------+
+|      5000 | Bachelor Of Commerce       |                3 | 200000.00 |        35 |
+|      5006 | Phd Technology             |                5 | 300000.00 |        50 |
+|      5008 | Phd Commerce               |                4 |  50000.00 |        45 |
+|      5011 | Associate Bechlore Physics |                3 |  75000.00 |        35 |
++-----------+----------------------------+------------------+-----------+-----------+
+================================================================================================================
+71). Write a query to display the degree name, degree id and count of students who have enrolled in the course. (JOINS)
+> select d.degree_name,d.degree_id,count(*) from degree_details as d , enrollment as e where d.degree_id=e.deg_id group by d.degree_name,d.degree_id;
+
+=> we use group by 
+Max  (max of all subject,group by not required  ) but if(max of each subject /subject wise/particular subject ,group by is nessasary )
+Min
+Avg
+Sum
+Count 
+
+all column other than aggrigate function must be in group by otherwise it can give us error!
++------------------------+-----------+----------+
+| degree_name            | degree_id | count(*) |
++------------------------+-----------+----------+
+| Master Of Commerce     |      5001 |        2 |
+| Bachelor Of Business   |      5002 |        2 |
+| Master Of Business     |      5003 |        1 |
+| Bachelor Of Technology |      5004 |        2 |
+| Master Of Technology   |      5005 |        1 |
+| Phd Business           |      5007 |        3 |
+| MBBS                   |      5009 |        1 |
+| MD                     |      5010 |        2 |
++------------------------+-----------+----------+
+=================================================================================================================================================

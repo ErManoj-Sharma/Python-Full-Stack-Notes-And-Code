@@ -1,0 +1,162 @@
+
+72). waq to display degree name  and degree id of course that has highest enrollment? // count(*) is optional you can remove it.
+> select d.degree_name , d.degree_id, count(*) from degree_details as d,enrollment as e where d.degree_id=e.deg_id group by d.degree_id,d.degree_name order by count(*) desc  ;
++------------------------+-----------+----------+
+| degree_name            | degree_id | count(*) |
++------------------------+-----------+----------+
+| Phd Business           |      5007 |        3 |
+| Master Of Commerce     |      5001 |        2 |
+| Bachelor Of Business   |      5002 |        2 |
+| Bachelor Of Technology |      5004 |        2 |
+| MD                     |      5010 |        2 |
+| Master Of Business     |      5003 |        1 |
+| Master Of Technology   |      5005 |        1 |
+| MBBS                   |      5009 |        1 |
++------------------------+-----------+----------+
+ > select d.degree_name , d.degree_id, count(*) from degree_details as d,enrollment as e where d.degree_id=e.deg_id group by d.degree_id,d.degree_name order by count(*) desc limit 1 ;
++--------------+-----------+----------+
+| degree_name  | degree_id | count(*) |
++--------------+-----------+----------+
+| Phd Business |      5007 |        3 |
++--------------+-----------+----------+
+=================================================================================================================
+73). waq to display degree name  and degree id of course that has least enrollment among the courses that has atleast 1 enrollment /among the courses present in enrollment ?
+ > select d.degree_name , d.degree_id, count(*) from degree_details as d,enrollment as e where d.degree_id=e.deg_id group by d.degree_id,d.degree_name order by count(*) limit 3  ;
++----------------------+-----------+----------+
+| degree_name          | degree_id | count(*) |
++----------------------+-----------+----------+
+| MBBS                 |      5009 |        1 |
+| Master Of Business   |      5003 |        1 |
+| Master Of Technology |      5005 |        1 |
++----------------------+-----------+----------+
+=====================================================================================================================
+74). waq to display degree name  and degree id of course that has least enrollment // zero enrollment
+> select distinct deg_id from enrollment; 
+> select * from degree_details where degree_id not in (select distinct deg_id from enrollment);
+
++--------+
+| deg_id |
++--------+
+|   5001 |
+|   5002 |
+|   5003 |
+|   5004 |
+|   5005 |
+|   5007 |
+|   5009 |
+|   5010 |
++--------+
++-----------+----------------------------+------------------+-----------+-----------+
+| Degree_ID | Degree_Name                | Length_Of_Course | Fees      | min_marks |
++-----------+----------------------------+------------------+-----------+-----------+
+|      5000 | Bachelor Of Commerce       |                3 | 200000.00 |        35 |
+|      5006 | Phd Technology             |                5 | 300000.00 |        50 |
+|      5008 | Phd Commerce               |                4 |  50000.00 |        45 |
+|      5011 | Associate Bechlore Physics |                3 |  75000.00 |        35 |
++-----------+----------------------------+------------------+-----------+-----------+
+=====================================================================================================================
+
+75). Write a query to display the maximum narks scored in all subjects taken together.
+ > select max(marks) from enrollment;
++------------+
+| max(marks) |
++------------+
+|         99 |
++------------+
+----------------------------------------------------------------------------------------------------------------------------------
+76). Write a query to display the minimum of marks scored by the students in all subjects taken together.
+ > select min(marks) from enrollment;
++------------+
+| min(marks) |
++------------+
+|         26 |
++------------+
+--------------------------------------------------------------------------------------------------------------------------------
+77). Write a query to display the sum of marks scored in all subjects taken together.
+ > select sum(marks) from enrollment;
++------------+
+| sum(marks) |
++------------+
+|        794 |
++------------+
+
+78). Write a query to display the average marks taken all subjects together.
+> select avg(marks) from enrollment;
++------------+
+| avg(marks) |
++------------+
+|    56.7143 |
++------------+
+========================================================================================================================
+79). Write a query to display the id, name of course along with maximum marks scored in each COURSE.
+ > select d.degree_id , d.degree_name,max(e.marks) from degree_details as d,enrollment as e where d.degree_id=e.deg_id group by d.degree_id,d.degree_name ;
++-----------+------------------------+--------------+
+| degree_id | degree_name            | max(e.marks) |
++-----------+------------------------+--------------+
+|      5002 | Bachelor Of Business   |           56 |
+|      5001 | Master Of Commerce     |           75 |
+|      5009 | MBBS                   |           30 |
+|      5003 | Master Of Business     |           45 |
+|      5010 | MD                     |           76 |
+|      5005 | Master Of Technology   |           79 |
+|      5004 | Bachelor Of Technology |           81 |
+|      5007 | Phd Business           |           99 |
++-----------+------------------------+--------------+
+================================================================================================================================
+80). Write a query to display the course details with minimum marks scored in each COURSE./ min marks less than 50
+ > select d.degree_id , d.degree_name,min(e.marks) from degree_details as d,enrollment as e where d.degree_id=e.deg_id group by d.degree_id,d.degree_name ;
++-----------+------------------------+--------------+
+| degree_id | degree_name            | min(e.marks) |
++-----------+------------------------+--------------+
+|      5002 | Bachelor Of Business   |           26 |
+|      5001 | Master Of Commerce     |           28 |
+|      5009 | MBBS                   |           30 |
+|      5003 | Master Of Business     |           45 |
+|      5010 | MD                     |           41 |
+|      5005 | Master Of Technology   |           79 |
+|      5004 | Bachelor Of Technology |           31 |
+|      5007 | Phd Business           |           61 |
++-----------+------------------------+--------------+
+===================================================================================================================================
+Q).81). Write a query to display the course details with minimum marks scored in each COURSE./ min marks less than 50
+====> we cant use aggrigate function in where , where doesnot support aggrigate function as it works line by line 
+ > select d.degree_id , d.degree_name,min(e.marks) from degree_details as d,enrollment as e where d.degree_id=e.deg_id group by d.degree_id,d.degree_name having min(e.marks)<50;
++-----------+------------------------+--------------+
+| degree_id | degree_name            | min(e.marks) |
++-----------+------------------------+--------------+
+|      5010 | MD                     |           41 |
+|      5002 | Bachelor Of Business   |           26 |
+|      5003 | Master Of Business     |           45 |
+|      5004 | Bachelor Of Technology |           31 |
+|      5001 | Master Of Commerce     |           28 |
+|      5009 | MBBS                   |           30 |
++-----------+------------------------+--------------+
+==================================================================================================================
+82). Write a query to display the course details with minimum marks scored in each COURSE./  marks lesser than 50
+ > select d.degree_id , d.degree_name,min(e.marks) from degree_details as d,enrollment as e where d.degree_id=e.deg_id and marks<50  group by d.degree_id,d.degree_name;
++-----------+------------------------+--------------+
+| degree_id | degree_name            | min(e.marks) |
++-----------+------------------------+--------------+
+|      5002 | Bachelor Of Business   |           26 |
+|      5003 | Master Of Business     |           45 |
+|      5004 | Bachelor Of Technology |           31 |
+|      5001 | Master Of Commerce     |           28 |
+|      5009 | MBBS                   |           30 |
+|      5010 | MD                     |           41 |
++-----------+------------------------+--------------+
+===============================================================================================================================
+83). Write a query to display the course details along sum of marks scored by the students in each subject.
+ MySQL  localhost:3306 ssl  m  SQL > select d.degree_id , d.degree_name,sum(e.marks) from degree_details as d,enrollment as e where d.degree_id=e.deg_id group by d.degree_id,d.degree_name;
++-----------+------------------------+--------------+
+| degree_id | degree_name            | sum(e.marks) |
++-----------+------------------------+--------------+
+|      5002 | Bachelor Of Business   |           82 |
+|      5001 | Master Of Commerce     |          103 |
+|      5009 | MBBS                   |           30 |
+|      5003 | Master Of Business     |           45 |
+|      5010 | MD                     |          117 |
+|      5005 | Master Of Technology   |           79 |
+|      5004 | Bachelor Of Technology |          112 |
+|      5007 | Phd Business           |          226 |
++-----------+------------------------+--------------+
+========================================================================================================================

@@ -1,0 +1,24 @@
+create table degree_details(
+Degree_ID int unsigned not null auto_increment primary key,
+Degree_Name varchar(50) not null,
+Length_Of_Course int unsigned not null check(Length_Of_Course>=3 and Length_Of_Course<=5),
+Fees decimal(8,2) not null,
+min_marks int unsigned not null
+)auto_increment=5000;
+
+/* constraint issue   */
+
+insert into degree_details(degree_name,length_of_course,fees,min_marks) values
+('Bachelor Of Commerce',3,200000,35),
+('Master Of Commerce',3,250000,40),
+('Bachelor Of Business',3,600000,35),
+('Master Of Business',3,500000,50),
+('Bachelor Of Technology',4,400000,35),
+('Master Of Technology',3,100000,40),
+('Phd Technology',5,300000,50),
+('Phd Business',5,90000,50),
+('Phd Commerce',4,50000,45),
+('MBBS',5,100000,40),
+('MD',4,500000,35),
+('Associate Bechlore Physics',3,75000,35);
+

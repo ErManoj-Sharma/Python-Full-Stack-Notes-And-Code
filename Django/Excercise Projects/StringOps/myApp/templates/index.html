@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+
+        <title>Home Page</title>
+    </head>
+    <body class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Mj Creation</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Github</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">String Project</a>
+                        </li>
+                    </ul>
+                </div>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Welcome User </strong> Enter your text in field below.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <br />
+        <form action="/analyze" method="get">{% csrf_token %}
+            <div class="form-floating">
+                <textarea class="form-control" name="text" placeholder="Leave a comment here" id="floatingTextarea" style="height: 213px;"></textarea>
+                <label for="floatingTextarea">Enter Your Text ...</label>
+            </div>
+            <br />
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="removepunc" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                <label class="form-check-label" for="flexSwitchCheckDefault"> Remove Punctuators </label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="uppercase" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                <label class="form-check-label" for="flexSwitchCheckDefault"> Uppercase </label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="removenewline" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                <label class="form-check-label" for="flexSwitchCheckDefault">Remove New Line </label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input"  name="extraspace" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                <label class="form-check-label" for="flexSwitchCheckDefault">Remove Extra Space </label>
+            </div>
+            <br />
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
+</html>

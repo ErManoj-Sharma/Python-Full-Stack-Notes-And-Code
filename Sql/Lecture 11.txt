@@ -1,0 +1,293 @@
+Q.1 how to create database ?
+ MySQL  localhost:3306 ssl  SQL > create database student_details;
+Query OK, 1 row affected (0.1001 sec)
+====================================================================================================
+Q.2 how to see all databases created ?
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| student_details    |
+| sys                |
++--------------------+
+5 rows in set (0.0011 sec)
+=======================================================================================================
+Q.3 how to drop/delete database ?
+ MySQL  localhost:3306 ssl  SQL > create database mj;
+Query OK, 1 row affected (0.1458 sec)
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mj                 |
+| mysql              |
+| performance_schema |
+| student_details    |
+| sys                |
++--------------------+
+6 rows in set (0.0767 sec)
+ MySQL  localhost:3306 ssl  SQL > drop database mj;
+Query OK, 0 rows affected (0.1804 sec)
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| student_details    |
+| sys                |
++--------------------+
+5 rows in set (0.0012 sec)
+=====================================================================================================================
+Q.4 how to use a created database or see which data base is being used ?
+ MySQL  localhost:3306 ssl  SQL > select database();
++------------+
+| database() |
++------------+
+| NULL       |
++------------+
+1 row in set (0.0003 sec)
+ MySQL  localhost:3306 ssl  SQL > use student_details;
+Default schema set to `student_details`.
+Fetching table and column names from `student_details` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  student_details  SQL > select database();
++-----------------+
+| database()      |
++-----------------+
+| student_details |
++-----------------+
+1 row in set (0.0003 sec)
+=======================================================================================================================
+Q.5 create a table named Student which has the following attributes ID,First_Name,Last_Name,City,Age,Date+Of_Joining,Result[PASS,FAIL,AWAITED(default)]
+see if table is created or not , check for description of table ?
+
+create table Student(
+ID int unsigned not null auto_increment primary key,
+First_Name varchar(20) not null,
+Last_Name varchar(20) not null,
+City char(20) not null,
+Age int unsigned not null,
+Date_Of_Joining date not null,
+Result enum('PASS','FAIL','AWAITED') not null default 'AWAITED'
+);
+MySQL  localhost:3306 ssl  student_details  SQL > show tables;
++---------------------------+
+| Tables_in_student_details |
++---------------------------+
+| student                   |
++---------------------------+
+
+ MySQL  localhost:3306 ssl  student_details  SQL > describe student;
++-----------------+-------------------------------+------+-----+---------+----------------+
+| Field           | Type                          | Null | Key | Default | Extra          |
++-----------------+-------------------------------+------+-----+---------+----------------+
+| ID              | int unsigned                  | NO   | PRI | NULL    | auto_increment |
+| First_Name      | varchar(20)                   | NO   |     | NULL    |                |
+| Last_Name       | varchar(20)                   | NO   |     | NULL    |                |
+| City            | char(20)                      | NO   |     | NULL    |                |
+| Age             | int unsigned                  | NO   |     | NULL    |                |
+| Date_Of_Joining | date                          | NO   |     | NULL    |                |
+| Result          | enum('PASS','FAIL','AWAITED') | NO   |     | AWAITED |                |
++-----------------+-------------------------------+------+-----+---------+----------------+
+=========================================================================================================================================================
+Q.6 create table named degree which has the following attribute Degree_Id,Course_Name,Length_Of_Course(check if its is greather than 3& less than 4),Fees.
+see if table is created or not also check for decription of table?
+
+create table Degree(
+Degree_ID int unsigned not null auto_increment primary key,
+Course_Name varchar(20) not null,
+Length_Of_Course varchar(20) not null check(Length_Of_Course>=3 and Length_Of_Course<=4),
+Fees decimal(8,2) not null
+)auto_increment=5000;
+
+ MySQL  localhost:3306 ssl  student_details  SQL > show tables;
++---------------------------+
+| Tables_in_student_details |
++---------------------------+
+| degree                    |
+| student                   |
++---------------------------+
+ 
+MySQL  localhost:3306 ssl  student_details  SQL > describe degree;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| Degree_ID        | int unsigned | NO   | PRI | NULL    | auto_increment |
+| Course_Name      | varchar(20)  | NO   |     | NULL    |                |
+| Length_Of_Course | varchar(20)  | NO   |     | NULL    |                |
+| Fees             | decimal(8,2) | NO   |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+=================================================================================================================================================================
+Q.7 rename the coluumn name date_of_joining of student table to admission date?
+---> to rename attribute or column use "change" keyword .
+---> to change name of table then use "rename" keyword.
+
+ MySQL  localhost:3306 ssl  student_details  SQL > describe student;
++-----------------+-------------------------------+------+-----+---------+----------------+
+| Field           | Type                          | Null | Key | Default | Extra          |
++-----------------+-------------------------------+------+-----+---------+----------------+
+| ID              | int unsigned                  | NO   | PRI | NULL    | auto_increment |
+| First_Name      | varchar(20)                   | NO   |     | NULL    |                |
+| Last_Name       | varchar(20)                   | NO   |     | NULL    |                |
+| City            | char(20)                      | NO   |     | NULL    |                |
+| Age             | int unsigned                  | NO   |     | NULL    |                |
+| Date_Of_Joining | date                          | NO   |     | NULL    |                |
+| Result          | enum('PASS','FAIL','AWAITED') | NO   |     | AWAITED |                |
++-----------------+-------------------------------+------+-----+---------+----------------+
+
+alter table student change Date_Of_Joining Admission_Date date not null;
+
+ MySQL  localhost:3306 ssl  student_details  SQL > describe student;
++----------------+-------------------------------+------+-----+---------+----------------+
+| Field          | Type                          | Null | Key | Default | Extra          |
++----------------+-------------------------------+------+-----+---------+----------------+
+| ID             | int unsigned                  | NO   | PRI | NULL    | auto_increment |
+| First_Name     | varchar(20)                   | NO   |     | NULL    |                |
+| Last_Name      | varchar(20)                   | NO   |     | NULL    |                |
+| City           | char(20)                      | NO   |     | NULL    |                |
+| Age            | int unsigned                  | NO   |     | NULL    |                |
+| Admission_Date | date                          | NO   |     | NULL    |                |
+| Result         | enum('PASS','FAIL','AWAITED') | NO   |     | AWAITED |                |
++----------------+-------------------------------+------+-----+---------+----------------+
+
+==================================================================================================================================================================
+
+Q.8 change the datatype of city in student table from char to varchar?
+--> to change only datatype : modify
+--> to add column in table : add
+--> to delete column in table :drop
+ MySQL  localhost:3306 ssl  student_details  SQL > describe student;
++----------------+-------------------------------+------+-----+---------+----------------+
+| Field          | Type                          | Null | Key | Default | Extra          |
++----------------+-------------------------------+------+-----+---------+----------------+
+| ID             | int unsigned                  | NO   | PRI | NULL    | auto_increment |
+| First_Name     | varchar(20)                   | NO   |     | NULL    |                |
+| Last_Name      | varchar(20)                   | NO   |     | NULL    |                |
+| City           | char(20)                      | NO   |     | NULL    |                |
+| Age            | int unsigned                  | NO   |     | NULL    |                |
+| Admission_Date | date                          | NO   |     | NULL    |                |
+| Result         | enum('PASS','FAIL','AWAITED') | NO   |     | AWAITED |                |
++----------------+-------------------------------+------+-----+---------+----------------+
+
+alter table student modify city varchar(20) not null;
+
+ MySQL  localhost:3306 ssl  student_details  SQL > describe student;
++----------------+-------------------------------+------+-----+---------+----------------+
+| Field          | Type                          | Null | Key | Default | Extra          |
++----------------+-------------------------------+------+-----+---------+----------------+
+| ID             | int unsigned                  | NO   | PRI | NULL    | auto_increment |
+| First_Name     | varchar(20)                   | NO   |     | NULL    |                |
+| Last_Name      | varchar(20)                   | NO   |     | NULL    |                |
+| city           | varchar(20)                   | NO   |     | NULL    |                |
+| Age            | int unsigned                  | NO   |     | NULL    |                |
+| Admission_Date | date                          | NO   |     | NULL    |                |
+| Result         | enum('PASS','FAIL','AWAITED') | NO   |     | AWAITED |                |
++----------------+-------------------------------+------+-----+---------+----------------+
+==============================================================================================================================================================
+Q.9 In degree table change the name of course name to degree name?
+ MySQL  localhost:3306 ssl  student_details  SQL > describe degree;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| Degree_ID        | int unsigned | NO   | PRI | NULL    | auto_increment |
+| Course_Name      | varchar(20)  | NO   |     | NULL    |                |
+| Length_Of_Course | varchar(20)  | NO   |     | NULL    |                |
+| Fees             | decimal(8,2) | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+
+alter table degree change Course_Name Degree_Name varchar(20) not null;
+
+ MySQL  localhost:3306 ssl  student_details  SQL > describe degree;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| Degree_ID        | int unsigned | NO   | PRI | NULL    | auto_increment |
+| Degree_Name      | varchar(20)  | NO   |     | NULL    |                |
+| Length_Of_Course | varchar(20)  | NO   |     | NULL    |                |
+| Fees             | decimal(8,2) | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+
+=======================================================================================================================================================
+
+Q.10 change the name of degree table to degree details and student table to student data.?
+ MySQL  localhost:3306 ssl  student_details  SQL > show tables;
++---------------------------+
+| Tables_in_student_details |
++---------------------------+
+| degree                    |
+| student                   |
++---------------------------+
+
+alter table student rename student_data ;
+alter table degree rename degree_details ;
+ MySQL  localhost:3306 ssl  student_details  SQL > show tables;
++---------------------------+
+| Tables_in_student_details |
++---------------------------+
+| degree_details            |
+| student_data              |
++---------------------------+
+===========================================================================================================================================================
+Q.11  add column max marks in degree_details ?
+
+ MySQL  localhost:3306 ssl  student_details  SQL > describe degree_details;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| Degree_ID        | int unsigned | NO   | PRI | NULL    | auto_increment |
+| Degree_Name      | varchar(20)  | NO   |     | NULL    |                |
+| Length_Of_Course | varchar(20)  | NO   |     | NULL    |                |
+| Fees             | decimal(8,2) | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+
+alter table degree_details add max_marks int unsigned not null;
+
+MySQL  localhost:3306 ssl  student_details  SQL > describe degree_details;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| Degree_ID        | int unsigned | NO   | PRI | NULL    | auto_increment |
+| Degree_Name      | varchar(20)  | NO   |     | NULL    |                |
+| Length_Of_Course | varchar(20)  | NO   |     | NULL    |                |
+| Fees             | decimal(8,2) | YES  |     | NULL    |                |
+| max_marks        | int unsigned | NO   |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+
+==========================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

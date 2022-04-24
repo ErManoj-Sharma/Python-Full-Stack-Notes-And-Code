@@ -1,0 +1,37 @@
+91). Write a query to display the average marks scored in each subject along with the name, id, fees of the subject.
+
+92). Write a query to display the id, name, age and marks of the students who have scored more than the overall average in descending order of the 
+93). Display the id, name, degree_name,degree_id and marks of students who have scored less than the average in course with ID=5007.
+
+***94). Write a query to display the name, id, degree_name, marks and results of student who has scored above the average in their individual sub
+
+95). Write a query to display the maximum of sum of scores scored by students in each subject.
+
+96). Write a query to display the minimum of sum of scores scored by students in each subject.
+
+97). Write a query to display id and name of students who have not enrolled in any course.
+
+98). Write a query to display the first name, id, degree_name, marks and results of top 3 students overall.
+ 99). Write a query to display the name, id, degree_name, marks and results of bottom 5 students overall. 
+***100). Write a query to display the name, id, degree_name, marks of topper in each subject.
+
+101). Write a query to display all the details of students and their course who have passed in descending order of age. 
+102). Write a query to display all the details of students and their course who have failed in ascending order marks.
+
+106). Display the third highest scorer in all subjects,
+
+107). Display the second lowest scorer in Degree 5007.
+
+
+113). Display the id, name, admission date and the day name of the day they took admission.
+
+114). Display the details of the student who joinined on a Thursday in the month of may.
+
+115). Display the details of the students who joined in a leap year.
+
+116). Write a query to display the Degree Id in which more than 2 students have enrolled and the combined score of the two students is more than 100.
+
+117). Display the details of the courses that have been taken up by more than 1 student.
+
+118). Write a query to display the number of students who have failed in each degree.
+

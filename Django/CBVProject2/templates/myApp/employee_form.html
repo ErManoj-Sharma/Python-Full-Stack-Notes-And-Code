@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{%extends 'MyApp/parent.html'%}
+<html lang="en" dir="ltr">
+  <body>
+    <center>
+      {%block for_child%}
+        <h1 style="color:red">Employee Creation/Updation Form</h1>
+        <form  method="post">
+          {{form.as_p}}
+          {%csrf_token%}
+          <input type="submit" class="btn btn-primary" value="Insert/Update">
+        </form>
+      {%endblock%}
+    </center>
+  </body>
+</html>

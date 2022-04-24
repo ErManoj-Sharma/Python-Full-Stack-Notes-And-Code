@@ -1,0 +1,323 @@
+ MySQL  localhost:3306 ssl  m  SQL > select * from stu natural join enroll;
++----+---------+-----+-------------+-------+
+| id | name    | age | degree_name | marks |
++----+---------+-----+-------------+-------+
+|  1 | akash   |  20 | bcom        |    55 |
+|  2 | bishwas |  21 | btech       |    65 |
++----+---------+-----+-------------+-------+
+
+Types of joins: 
+Equi Join Non-Equi Join
+Natural Join
+Inner Join
+Left Join
+Right Join
+Full Join (key word full join is not supported in sql)
+
+83).Inner Join Student_data with enrollment table on id-sid and display all the data.
+ > select *from student_data as s inner join enrollment as e on s.id=e.sid;
++----+------------+-----------+-----------+-----+----------------+---------+-----+-------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  | SID | MARKS | Deg_ID |
++----+------------+-----------+-----------+-----+----------------+---------+-----+-------+--------+
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS    |   1 |    99 |   5007 |
+|  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS    |   2 |    66 |   5007 |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS    |   3 |    76 |   5010 |
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL    |   5 |    26 |   5002 |
+|  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL    |   6 |    45 |   5003 |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |   7 |    81 |   5004 |
+|  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL    |   8 |    31 |   5004 |
+|  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL    |   9 |    28 |   5001 |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |  11 |    56 |   5002 |
+| 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS    |  12 |    79 |   5005 |
+| 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS    |  13 |    61 |   5007 |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |  14 |    30 |   5009 |
+| 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS    |  15 |    41 |   5010 |
+| 16 | Rupali     | Gupta     | Chennai   |  21 | 2020-06-23     | PASS    |  16 |    75 |   5001 |
+| 22 | xyz        | qwrt      | mnbv      |  22 | 2022-04-18     | AWAITED |  22 |    36 |   5004 |
++----+------------+-----------+-----------+-----+----------------+---------+-----+-------+--------+
+===============================================================================================================================
+84). Left join Degree_details with Enrollment then inner join with student_data on idasid and deg id-degree_id. Show all the data.
+ > select *from degree_details as d left join enrollment as e on d.degree_id=e.deg_id;
++-----------+----------------------------+------------------+-----------+-----------+------+-------+--------+
+| Degree_ID | Degree_Name                | Length_Of_Course | Fees      | min_marks | SID  | MARKS | Deg_ID |
++-----------+----------------------------+------------------+-----------+-----------+------+-------+--------+
+|      5000 | Bachelor Of Commerce       |                3 | 200000.00 |        35 | NULL |  NULL |   NULL |
+|      5001 | Master Of Commerce         |                3 | 250000.00 |        40 |    9 |    28 |   5001 |
+|      5001 | Master Of Commerce         |                3 | 250000.00 |        40 |   16 |    75 |   5001 |
+|      5002 | Bachelor Of Business       |                3 | 600000.00 |        35 |    5 |    26 |   5002 |
+|      5002 | Bachelor Of Business       |                3 | 600000.00 |        35 |   11 |    56 |   5002 |
+|      5003 | Master Of Business         |                3 | 500000.00 |        50 |    6 |    45 |   5003 |
+|      5004 | Bachelor Of Technology     |                4 | 400000.00 |        35 |    7 |    81 |   5004 |
+|      5004 | Bachelor Of Technology     |                4 | 400000.00 |        35 |    8 |    31 |   5004 |
+|      5004 | Bachelor Of Technology     |                4 | 400000.00 |        35 |   22 |    36 |   5004 |
+|      5005 | Master Of Technology       |                3 | 100000.00 |        40 |   12 |    79 |   5005 |
+|      5006 | Phd Technology             |                5 | 300000.00 |        50 | NULL |  NULL |   NULL |
+|      5007 | Phd Business               |                5 |  90000.00 |        50 |    1 |    99 |   5007 |
+|      5007 | Phd Business               |                5 |  90000.00 |        50 |    2 |    66 |   5007 |
+|      5007 | Phd Business               |                5 |  90000.00 |        50 |   13 |    61 |   5007 |
+|      5008 | Phd Commerce               |                4 |  50000.00 |        45 | NULL |  NULL |   NULL |
+|      5009 | MBBS                       |                5 | 100000.00 |        40 |   14 |    30 |   5009 |
+|      5010 | MD                         |                4 | 500000.00 |        35 |    3 |    76 |   5010 |
+|      5010 | MD                         |                4 | 500000.00 |        35 |   15 |    41 |   5010 |
+|      5011 | Associate Bechlore Physics |                3 |  75000.00 |        35 | NULL |  NULL |   NULL |
++-----------+----------------------------+------------------+-----------+-----------+------+-------+--------+
+
+ > select * from degree_details as d 
+   left join enrollment as e
+   on d.degree_id=e.deg_id
+   inner join 
+   student_data as s 
+   on s.id=e.sid;
+
+> SELECT* FROM STUDENT_DATA AS S 
+  INNER JOIN
+  (SELECT * FROM DEGREE_DETAILS AS D
+  LEFT JOIN ENROLLMENT AS E
+  ON D.DEGREE_ID = E.DEG_ID 
+  )AS SL
+  ON S.ID=SL.SID;  
++-----------+------------------------+------------------+-----------+-----------+-----+-------+--------+----+------------+-----------+-----------+-----+----------------+---------+
+| Degree_ID | Degree_Name            | Length_Of_Course | Fees      | min_marks | SID | MARKS | Deg_ID | ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++-----------+------------------------+------------------+-----------+-----------+-----+-------+--------+----+------------+-----------+-----------+-----+----------------+---------+
+|      5007 | Phd Business           |                5 |  90000.00 |        50 |   1 |    99 |   5007 |  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS    |
+|      5007 | Phd Business           |                5 |  90000.00 |        50 |   2 |    66 |   5007 |  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS    |
+|      5010 | MD                     |                4 | 500000.00 |        35 |   3 |    76 |   5010 |  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS    |
+|      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |   5 |    26 |   5002 |  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|      5003 | Master Of Business     |                3 | 500000.00 |        50 |   6 |    45 |   5003 |  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |   7 |    81 |   5004 |  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |
+|      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |   8 |    31 |   5004 |  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL    |
+|      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |   9 |    28 |   5001 |  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL    |
+|      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |  11 |    56 |   5002 | 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |
+|      5005 | Master Of Technology   |                3 | 100000.00 |        40 |  12 |    79 |   5005 | 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS    |
+|      5007 | Phd Business           |                5 |  90000.00 |        50 |  13 |    61 |   5007 | 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS    |
+|      5009 | MBBS                   |                5 | 100000.00 |        40 |  14 |    30 |   5009 | 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |
+|      5010 | MD                     |                4 | 500000.00 |        35 |  15 |    41 |   5010 | 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS    |
+|      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |  16 |    75 |   5001 | 16 | Rupali     | Gupta     | Chennai   |  21 | 2020-06-23     | PASS    |
+|      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |  22 |    36 |   5004 | 22 | xyz        | qwrt      | mnbv      |  22 | 2022-04-18     | AWAITED |
++-----------+------------------------+------------------+-----------+-----------+-----+-------+--------+----+------------+-----------+-----------+-----+----------------+---------+
+
+=====================================================================================================================================================================
+
+85). Right join student data with Enrollment on id-sid. Then right join with Degree_details on degree_id=deg_id.
+ > select * from enrollment as e right join student_data as s on s.id=e.sid;
++------+-------+--------+----+------------+------------+-----------+-----+----------------+---------+
+| SID  | MARKS | Deg_ID | ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++------+-------+--------+----+------------+------------+-----------+-----+----------------+---------+
+|    1 |    99 |   5007 |  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |
+|    2 |    66 |   5007 |  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |
+|    3 |    76 |   5010 |  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |
+| NULL |  NULL |   NULL |  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED |
+|    5 |    26 |   5002 |  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|    6 |    45 |   5003 |  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|    7 |    81 |   5004 |  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | PASS    |
+|    8 |    31 |   5004 |  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |
+|    9 |    28 |   5001 |  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |
+| NULL |  NULL |   NULL | 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+|   11 |    56 |   5002 | 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |
+|   12 |    79 |   5005 | 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |
+|   13 |    61 |   5007 | 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |
+|   14 |    30 |   5009 | 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |
+|   15 |    41 |   5010 | 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | PASS    |
+|   16 |    75 |   5001 | 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| NULL |  NULL |   NULL | 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| NULL |  NULL |   NULL | 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| NULL |  NULL |   NULL | 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED |
+| NULL |  NULL |   NULL | 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED |
+| NULL |  NULL |   NULL | 21 | tushar     | thammanna  | ahmedabad |  24 | 2019-03-06     | AWAITED |
+|   22 |    36 |   5004 | 22 | xyz        | qwrt       | mnbv      |  22 | 2022-04-18     | AWAITED |
+| NULL |  NULL |   NULL | 23 | Emilio     | Rodriguez  | banglore  |  23 | 2020-02-23     | AWAITED |
++------+-------+--------+----+------------+------------+-----------+-----+----------------+---------+
+ > select * from enrollment as e  right join  student_data as s on s.id=e.sid inner join degree_details as d on d.degree_id=e.deg_id;
++-----+-------+--------+----+------------+-----------+-----------+-----+----------------+---------+-----------+------------------------+------------------+-----------+-----------+
+| SID | MARKS | Deg_ID | ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  | Degree_ID | Degree_Name            | Length_Of_Course | Fees      | min_marks |
++-----+-------+--------+----+------------+-----------+-----------+-----+----------------+---------+-----------+------------------------+------------------+-----------+-----------+
+|   1 |    99 |   5007 |  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS    |      5007 | Phd Business           |                5 |  90000.00 |        50 |
+|   2 |    66 |   5007 |  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS    |      5007 | Phd Business           |                5 |  90000.00 |        50 |
+|   3 |    76 |   5010 |  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS    |      5010 | MD                     |                4 | 500000.00 |        35 |
+|   5 |    26 |   5002 |  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL    |      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |
+|   6 |    45 |   5003 |  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL    |      5003 | Master Of Business     |                3 | 500000.00 |        50 |
+|   7 |    81 |   5004 |  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |
+|   8 |    31 |   5004 |  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL    |      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |
+|   9 |    28 |   5001 |  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL    |      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |
+|  11 |    56 |   5002 | 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |
+|  12 |    79 |   5005 | 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS    |      5005 | Master Of Technology   |                3 | 100000.00 |        40 |
+|  13 |    61 |   5007 | 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS    |      5007 | Phd Business           |                5 |  90000.00 |        50 |
+|  14 |    30 |   5009 | 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |      5009 | MBBS                   |                5 | 100000.00 |        40 |
+|  15 |    41 |   5010 | 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS    |      5010 | MD                     |                4 | 500000.00 |        35 |
+|  16 |    75 |   5001 | 16 | Rupali     | Gupta     | Chennai   |  21 | 2020-06-23     | PASS    |      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |
+|  22 |    36 |   5004 | 22 | xyz        | qwrt      | mnbv      |  22 | 2022-04-18     | AWAITED |      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |
++-----+-------+--------+----+------------+-----------+-----------+-----+----------------+---------+-----------+------------------------+------------------+-----------+-----------+
+=============================================================================================================================================================================
+
+86). Inner join Student_data with Enrollment on id-sid and where marks > 75. Display Student ID and result from Student data and Marks from enrollment
+
+ > select s.id,e.marks,s.result from student_data as s inner join enrollment as e on s.id=e.sid where e.marks>75;
++----+-------+--------+
+| id | marks | result |
++----+-------+--------+
+|  1 |    99 | PASS   |
+|  3 |    76 | PASS   |
+|  7 |    81 | PASS   |
+| 12 |    79 | PASS   |
++----+-------+--------+
+
+==================================================================================================================================================================
+87). Full join Student_data with Enrollment. Display all the data.
++-------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| => full join is not supported in my sql but if we want to do full join then firstlty we do left join and right join on two table then we do union of them to|
+| do full join.                                                                                                                                               | 
++-------------------------------------------------------------------------------------------------------------------------------------------------------------+
+ > select * from student_data as s right join enrollment as e on s.id=e.sid;
++----+------------+-----------+-----------+-----+----------------+---------+-----+-------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  | SID | MARKS | Deg_ID |
++----+------------+-----------+-----------+-----+----------------+---------+-----+-------+--------+
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS    |   1 |    99 |   5007 |
+|  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS    |   2 |    66 |   5007 |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS    |   3 |    76 |   5010 |
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL    |   5 |    26 |   5002 |
+|  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL    |   6 |    45 |   5003 |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |   7 |    81 |   5004 |
+|  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL    |   8 |    31 |   5004 |
+|  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL    |   9 |    28 |   5001 |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |  11 |    56 |   5002 |
+| 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS    |  12 |    79 |   5005 |
+| 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS    |  13 |    61 |   5007 |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |  14 |    30 |   5009 |
+| 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS    |  15 |    41 |   5010 |
+| 16 | Rupali     | Gupta     | Chennai   |  21 | 2020-06-23     | PASS    |  16 |    75 |   5001 |
+| 22 | xyz        | qwrt      | mnbv      |  22 | 2022-04-18     | AWAITED |  22 |    36 |   5004 |
++----+------------+-----------+-----------+-----+----------------+---------+-----+-------+--------+
+ > select * from student_data as s left join enrollment as e on s.id=e.sid;
++----+------------+------------+-----------+-----+----------------+---------+------+-------+--------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  | SID  | MARKS | Deg_ID |
++----+------------+------------+-----------+-----+----------------+---------+------+-------+--------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |    1 |    99 |   5007 |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |    2 |    66 |   5007 |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |    3 |    76 |   5010 |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED | NULL |  NULL |   NULL |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |    5 |    26 |   5002 |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |    6 |    45 |   5003 |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | PASS    |    7 |    81 |   5004 |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |    8 |    31 |   5004 |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |    9 |    28 |   5001 |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED | NULL |  NULL |   NULL |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |   11 |    56 |   5002 |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |   12 |    79 |   5005 |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |   13 |    61 |   5007 |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |   14 |    30 |   5009 |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | PASS    |   15 |    41 |   5010 |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |   16 |    75 |   5001 |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED | NULL |  NULL |   NULL |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED | NULL |  NULL |   NULL |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED | NULL |  NULL |   NULL |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED | NULL |  NULL |   NULL |
+| 21 | tushar     | thammanna  | ahmedabad |  24 | 2019-03-06     | AWAITED | NULL |  NULL |   NULL |
+| 22 | xyz        | qwrt       | mnbv      |  22 | 2022-04-18     | AWAITED |   22 |    36 |   5004 |
+| 23 | Emilio     | Rodriguez  | banglore  |  23 | 2020-02-23     | AWAITED | NULL |  NULL |   NULL |
++----+------------+------------+-----------+-----+----------------+---------+------+-------+--------+
+ > select * from student_data as s left join enrollment as e on s.id=e.sid union select*from student_data as s right join enrollment as e on s.id=e.sid;
++----+------------+------------+-----------+-----+----------------+---------+------+-------+--------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  | SID  | MARKS | Deg_ID |
++----+------------+------------+-----------+-----+----------------+---------+------+-------+--------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |    1 |    99 |   5007 |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |    2 |    66 |   5007 |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |    3 |    76 |   5010 |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED | NULL |  NULL |   NULL |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |    5 |    26 |   5002 |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |    6 |    45 |   5003 |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | PASS    |    7 |    81 |   5004 |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |    8 |    31 |   5004 |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |    9 |    28 |   5001 |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED | NULL |  NULL |   NULL |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |   11 |    56 |   5002 |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |   12 |    79 |   5005 |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |   13 |    61 |   5007 |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |   14 |    30 |   5009 |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | PASS    |   15 |    41 |   5010 |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |   16 |    75 |   5001 |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED | NULL |  NULL |   NULL |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED | NULL |  NULL |   NULL |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED | NULL |  NULL |   NULL |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED | NULL |  NULL |   NULL |
+| 21 | tushar     | thammanna  | ahmedabad |  24 | 2019-03-06     | AWAITED | NULL |  NULL |   NULL |
+| 22 | xyz        | qwrt       | mnbv      |  22 | 2022-04-18     | AWAITED |   22 |    36 |   5004 |
+| 23 | Emilio     | Rodriguez  | banglore  |  23 | 2020-02-23     | AWAITED | NULL |  NULL |   NULL |
++----+------------+------------+-----------+-----+----------------+---------+------+-------+--------+
+
+ > select * from student_data as s right join enrollment as e on s.id=e.sid union select*from student_data as s left join enrollment as e on s.id=e.sid;
++----+------------+------------+-----------+-----+----------------+---------+------+-------+--------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  | SID  | MARKS | Deg_ID |
++----+------------+------------+-----------+-----+----------------+---------+------+-------+--------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |    1 |    99 |   5007 |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |    2 |    66 |   5007 |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |    3 |    76 |   5010 |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |    5 |    26 |   5002 |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |    6 |    45 |   5003 |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | PASS    |    7 |    81 |   5004 |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |    8 |    31 |   5004 |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |    9 |    28 |   5001 |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |   11 |    56 |   5002 |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |   12 |    79 |   5005 |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |   13 |    61 |   5007 |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |   14 |    30 |   5009 |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | PASS    |   15 |    41 |   5010 |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |   16 |    75 |   5001 |
+| 22 | xyz        | qwrt       | mnbv      |  22 | 2022-04-18     | AWAITED |   22 |    36 |   5004 |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED | NULL |  NULL |   NULL |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED | NULL |  NULL |   NULL |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED | NULL |  NULL |   NULL |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED | NULL |  NULL |   NULL |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED | NULL |  NULL |   NULL |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED | NULL |  NULL |   NULL |
+| 21 | tushar     | thammanna  | ahmedabad |  24 | 2019-03-06     | AWAITED | NULL |  NULL |   NULL |
+| 23 | Emilio     | Rodriguez  | banglore  |  23 | 2020-02-23     | AWAITED | NULL |  NULL |   NULL |
++----+------------+------------+-----------+-----+----------------+---------+------+-------+--------+
+==================================================================================================================================================================
+
+88). Full join Degree_details with enrollment table. Display all data where fees < 200000.
+ > select * from degree_details  as d right join enrollment as e on d.degree_id=e.deg_id union select*from degree_details as d left join enrollment as e on d.degree_id=e.deg_id where d.fees<200000;
++-----------+----------------------------+------------------+-----------+-----------+------+-------+--------+
+| Degree_ID | Degree_Name                | Length_Of_Course | Fees      | min_marks | SID  | MARKS | Deg_ID |
++-----------+----------------------------+------------------+-----------+-----------+------+-------+--------+
+|      5007 | Phd Business               |                5 |  90000.00 |        50 |    1 |    99 |   5007 |
+|      5007 | Phd Business               |                5 |  90000.00 |        50 |    2 |    66 |   5007 |
+|      5010 | MD                         |                4 | 500000.00 |        35 |    3 |    76 |   5010 |
+|      5002 | Bachelor Of Business       |                3 | 600000.00 |        35 |    5 |    26 |   5002 |
+|      5003 | Master Of Business         |                3 | 500000.00 |        50 |    6 |    45 |   5003 |
+|      5004 | Bachelor Of Technology     |                4 | 400000.00 |        35 |    7 |    81 |   5004 |
+|      5004 | Bachelor Of Technology     |                4 | 400000.00 |        35 |    8 |    31 |   5004 |
+|      5001 | Master Of Commerce         |                3 | 250000.00 |        40 |    9 |    28 |   5001 |
+|      5002 | Bachelor Of Business       |                3 | 600000.00 |        35 |   11 |    56 |   5002 |
+|      5005 | Master Of Technology       |                3 | 100000.00 |        40 |   12 |    79 |   5005 |
+|      5007 | Phd Business               |                5 |  90000.00 |        50 |   13 |    61 |   5007 |
+|      5009 | MBBS                       |                5 | 100000.00 |        40 |   14 |    30 |   5009 |
+|      5010 | MD                         |                4 | 500000.00 |        35 |   15 |    41 |   5010 |
+|      5001 | Master Of Commerce         |                3 | 250000.00 |        40 |   16 |    75 |   5001 |
+|      5004 | Bachelor Of Technology     |                4 | 400000.00 |        35 |   22 |    36 |   5004 |
+|      5008 | Phd Commerce               |                4 |  50000.00 |        45 | NULL |  NULL |   NULL |
+|      5011 | Associate Bechlore Physics |                3 |  75000.00 |        35 | NULL |  NULL |   NULL |
++-----------+----------------------------+------------------+-----------+-----------+------+-------+--------+
+=====================================================================================================================================================================
+89). Display the average marks cored bybthe students across different age groups. Order the output in descending order of average marks
+>select age,avg(marks) as 'mark' from student_data as s
+ inner join
+ enrollment as e
+ on s.id = e.sid
+ group by age
+ order by mark desc; 
+
+ > select s.age,avg(e.marks) from student_data as s right join enrollment as e on s.id=e.sid group by age;
++-----+--------------+
+| age | avg(e.marks) |
++-----+--------------+
+|  24 |      99.0000 |
+|  32 |      66.0000 |
+|  27 |      66.0000 |
+|  44 |      26.0000 |
+|  21 |      60.0000 |
+|  22 |      49.0000 |
+|  19 |      31.0000 |
+|  25 |      28.0000 |
+|  26 |      79.0000 |
+|  23 |      51.0000 |
++-----+--------------+

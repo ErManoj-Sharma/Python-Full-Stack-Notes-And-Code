@@ -1,0 +1,171 @@
+Q.17 populate tables ?
+
+INSERT INTO STUDENT_DATA(First_Name,Last_name,city,age,admission_date) values 
+('Akash','Kumar','Jaipur',24,'2020-03-28'),
+('Aaishwarya','Ray','Mumbai',32,'2020-05-29'),
+('Abhay','Chander','Mumbai',27,'2019-08-07'),
+('Anagha','Ahuja','Chennai',22,'2018-12-12'),
+('Bishwas','Bora','Ahmedabad',44,'2015-02-01'),
+('Bimla','Bhatt','Ahmedabad',21,'2021-03-21'),
+('Brijesh','Kumar','Jaipur',22,'2021-01-01'),
+('Arjun','Shet','Bangalore',19,'2020-12-31'),
+('Ramya','Bose','Bangalore',25,'2019-09-25'),
+('Sharanya','Ahuja','Mumbai',20,'2020-04-15'),
+('Suhas','Rai','Bangalore',27,'2016-05-14'),
+('Goutham','Sharma','Ahmedabad',26,'2020-07-20'),
+('Dilshan','Gupta','Jaipur',23,'2014-02-07'),
+('Sachin','Acharya','Bangalore',22,'2020-01-01'),
+('Tanveer','Ahmed','Chennai',23,'2019-05-09'),
+('Rupali','Gupta','Chennai',21,'2020-06-23'),
+('Deepika','Verma','Ahmedabad',26,'2017-08-22'),
+('Deepika','Chatterjee','Ahmedabad',29,'2020-11-05'),
+('Zhyn','Jackman','Banglore',24,'2019-06-22');
+
+
+==================================================================================================
+
+PQ : Delete a Student record Having id=9.?
+
+=>>>> in this we want to delete a record which is referenced by other table (refrentail intigrity).
+
+ MySQL  localhost:3306 ssl  m  SQL > select*from student_data;
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | AWAITED |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | AWAITED |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | AWAITED |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | AWAITED |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | AWAITED |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | AWAITED |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | AWAITED |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | AWAITED |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | AWAITED |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | AWAITED |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | AWAITED |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | AWAITED |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | AWAITED |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | AWAITED |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | Deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+ 
+> delete from student_data where id=9;
+ERROR: 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`m`.`enrollment`, CONSTRAINT `enrollment_ibfk_1` FOREIGN KEY (`SID`) REFERENCES `student_data` (`ID`))
+
+ > delete from enrollment where sid=9;
+
+ > delete from student_data where id=9;
+
+ > select*from student_data;
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | AWAITED |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | AWAITED |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | AWAITED |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | AWAITED |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | AWAITED |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | AWAITED |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | AWAITED |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | AWAITED |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | AWAITED |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | AWAITED |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | AWAITED |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | AWAITED |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | AWAITED |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | Deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+=======================================================================================================================================================
+Q Update result to 'Pass' in student_data where student got marks more than minimum makrs?
+
+>update student_data,degree_details,enrollment set result='Pass' where marks>=min_marks and id=sid and deg_id=degree_id;
+OR
+>update student_data,degree_details,enrollment set student_data.result='Pass' where enrollment.Marks>=degree_details.min_marks and student_data.id=enrollmemt.sid and 
+enrollment.deg_id=degree_details.degree_id;
+OR
+>update student_data as s,degree_details as d,enrollment as e set s.result='Pass' where e.Marks>=d.min_marks and s.id=e.sid and 
+e.deg_id=d.degree_id;
+OR
+>update student_data,degree_details,enrollment set student_data.result='Fail' where enrollment.Marks < degree_details.min_marks and student_data.id=enrollment.sid and 
+enrollment.deg_id=degree_details.degree_id;
+
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | PASS    |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | PASS    |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | Deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+
+============================================================================================================================================
+Q.18 poplutate degree_details table and show no of course ?
+ MySQL  localhost:3306 ssl  m  SQL > select count(*) from degree_details;
++----------+
+| count(*) |
++----------+
+|       12 |
++----------+
+1 row in set (0.0021 sec)
+ MySQL  localhost:3306 ssl  m  SQL > select count(degree_id) from degree_details;
++------------------+
+| count(degree_id) |
++------------------+
+|               12 |
++------------------+
+ MySQL  localhost:3306 ssl  m  SQL > select count(distinct degree_id) from degree_details;
++---------------------------+
+| count(distinct degree_id) |
++---------------------------+
+|                        12 |
++---------------------------+
+=====================================================================================================================================
+Q.19. show no of enrollment ?
+ MySQL  localhost:3306 ssl  m  SQL > select count(deg_id) from enrollment;
++---------------+
+| count(deg_id) |
++---------------+
+|            14 |
++---------------+
+1 row in set (0.0038 sec)
+ MySQL  localhost:3306 ssl  m  SQL > select count(*) from enrollment;
++----------+
+| count(*) |
++----------+
+|       14 |
++----------+
+1 row in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  m  SQL > select count(sid) from enrollment;
++------------+
+| count(sid) |
++------------+
+|         14 |
++------------+
+==========================================================================================================================
+
+
+
+
+

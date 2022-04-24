@@ -1,0 +1,182 @@
+106). Display the details of the third highest scorer in all subjects taken together.
++--------------------------------------------------+
+|  limit postion : no that starts from ,no of rows |  
+|   limit 0,1 / limit 0,2 / limit 1,2 etc .        |
++--------------------------------------------------+
+
+ > select s.*,e.marks from student_data as s inner join enrollment as e on s.id=e.sid order by e.marks desc ;
++----+------------+-----------+-----------+-----+----------------+---------+-------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  | marks |
++----+------------+-----------+-----------+-----+----------------+---------+-------+
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS    |    99 |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |    81 |
+| 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS    |    79 |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS    |    76 |
+| 16 | Rupali     | Gupta     | Chennai   |  21 | 2020-06-23     | PASS    |    75 |
+|  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS    |    66 |
+| 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS    |    61 |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |    56 |
+|  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL    |    45 |
+| 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS    |    41 |
+| 22 | xyz        | qwrt      | mnbv      |  22 | 2022-04-18     | AWAITED |    36 |
+|  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL    |    31 |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |    30 |
+|  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL    |    28 |
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL    |    26 |
++----+------------+-----------+-----------+-----+----------------+---------+-------+
+ > select s.*,e.marks from student_data as s inner join enrollment as e on s.id=e.sid order by e.marks desc limit 2,1;   /* try with (1,2),(2,5) etc */
++----+------------+-----------+-----------+-----+----------------+--------+-------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result | marks |
++----+------------+-----------+-----------+-----+----------------+--------+-------+
+| 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS   |    79 |
++----+------------+-----------+-----------+-----+----------------+--------+-------+
+=========================================================================================================================================
+107). Display the second lovest scorer in Degree 5007.
+ > select s.*,e.marks from student_data as s inner join enrollment as e inner join degree_details as d on s.id=e.sid and d.degree_id=e.deg_id  where degree_id=5007 order by e.marks asc  limit 1,1;
++----+------------+-----------+--------+-----+----------------+--------+-------+
+| ID | First_Name | Last_Name | City   | Age | Admission_Date | Result | marks |
++----+------------+-----------+--------+-----+----------------+--------+-------+
+|  2 | Aaishwarya | Ray       | Mumbai |  32 | 2020-05-29     | PASS   |    66 |
++----+------------+-----------+--------+-----+----------------+--------+-------+
+================================================================================================================
+****108). Display the first 50% records of the student_data table.
+ > select *from student_data where id<= (select max(id)from student_data)/2;
++----+------------+-----------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++----+------------+-----------+-----------+-----+----------------+---------+
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS    |
+|  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS    |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS    |
+|  4 | Anagha     | Ahuja     | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |
+|  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL    |
+|  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 10 | Sharanya   | Ahuja     | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |
++----+------------+-----------+-----------+-----+----------------+---------+
+Q last 50 % of all record ?
+ > select *from student_data where id> (select max(id)from student_data)/2;
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | PASS    |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED |
+| 21 | tushar     | thammanna  | ahmedabad |  24 | 2019-03-06     | AWAITED |
+| 22 | xyz        | qwrt       | mnbv      |  22 | 2022-04-18     | AWAITED |
+| 23 | Emilio     | Rodriguez  | banglore  |  23 | 2020-02-23     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+
+===========================================================================================================
+***109). Write a query to get a list of courses that have less than 3 enrollments.
+>select d.degree_id,d.degree_name ,count(*) as 'count'
+from degree_details as d
+inner join 
+enrollment as e  
+on d.degree_id=e.deg_id 
+group by degree_id,degree_name 
+having count(*)<3;
++-----------+----------------------+-------+
+| degree_id | degree_name          | count |
++-----------+----------------------+-------+
+|      5001 | Master Of Commerce   |     2 |
+|      5002 | Bachelor Of Business |     2 |
+|      5003 | Master Of Business   |     1 |
+|      5005 | Master Of Technology |     1 |
+|      5009 | MBBS                 |     1 |
+|      5010 | MD                   |     2 |
++-----------+----------------------+-------+
+
+Now we update query to see all the details including zero enrollment
+>select d.degree_id,d.degree_name,e.deg_id,count(e.deg_id)
+from degree_details as d 
+left join 
+enrollment as e 
+on e.deg_id=d.degree_id 
+group by d.degree_id 
+having count(e.deg_id)<3;
++-----------+----------------------------+--------+-----------------+
+| degree_id | degree_name                | deg_id | count(e.deg_id) |
++-----------+----------------------------+--------+-----------------+
+|      5000 | Bachelor Of Commerce       |   NULL |               0 |
+|      5001 | Master Of Commerce         |   5001 |               2 |
+|      5002 | Bachelor Of Business       |   5002 |               2 |
+|      5003 | Master Of Business         |   5003 |               1 |
+|      5005 | Master Of Technology       |   5005 |               1 |
+|      5006 | Phd Technology             |   NULL |               0 |
+|      5008 | Phd Commerce               |   NULL |               0 |
+|      5009 | MBBS                       |   5009 |               1 |
+|      5010 | MD                         |   5010 |               2 |
+|      5011 | Associate Bechlore Physics |   NULL |               0 |
++-----------+----------------------------+--------+-----------------+
+=========================================================================================================================
+110). Write a query to get the first record of student table.
+ > select * from student_data limit 0,1;
++----+------------+-----------+--------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City   | Age | Admission_Date | Result |
++----+------------+-----------+--------+-----+----------------+--------+
+|  1 | Akash      | Kumar     | Jaipur |  24 | 2020-03-28     | PASS   |
++----+------------+-----------+--------+-----+----------------+--------+
+OR
+ > select min(id) from student_data;
++---------+
+| min(id) |
++---------+
+|       1 |
++---------+
+ > select * from student_data where id=(select min(id) from student_data);
++----+------------+-----------+--------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City   | Age | Admission_Date | Result |
++----+------------+-----------+--------+-----+----------------+--------+
+|  1 | Akash      | Kumar     | Jaipur |  24 | 2020-03-28     | PASS   |
++----+------------+-----------+--------+-----+----------------+--------+
+==================================================================================================================
+111). Display the last record of enrollment table.
+
+> select * from student_data order by Id desc limit  0,1;
++----+------------+-----------+----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City     | Age | Admission_Date | Result  |
++----+------------+-----------+----------+-----+----------------+---------+
+| 23 | Emilio     | Rodriguez | banglore |  23 | 2020-02-23     | AWAITED |
++----+------------+-----------+----------+-----+----------------+---------+
+OR
+ > select max(id) from student_data ;
++---------+
+| max(id) |
++---------+
+|      23 |
++---------+
+ > select * from student_data where id=(select max(id) from student_data);
++----+------------+-----------+----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City     | Age | Admission_Date | Result  |
++----+------------+-----------+----------+-----+----------------+---------+
+| 23 | Emilio     | Rodriguez | banglore |  23 | 2020-02-23     | AWAITED |
++----+------------+-----------+----------+-----+----------------+---------+
+
+========================================================================================================================
+112). Get the output as ------ studying in degree ------ with id -----scored----- for all students and for id-1,1d-5 and 1d-22 separately.
+ > select concat(s.first_name,' studying in degree ',d.degree_name,' with id ',d.degree_id,' has scored ',e.marks)as ' student details 'from
+   student_data as s
+   inner join
+   enrollment as e
+   on s.id=e.sid
+   inner join
+   degree_details as d
+   on d.degree_id=e.deg_id
+   where s.id=1 or s.id=5 or s.id=22;
++----------------------------------------------------------------------------+
+| student details                                                            |
++----------------------------------------------------------------------------+
+| Akash studying in degree Phd Business with id 5007 has scored 99           |
+| Bishwas studying in degree Bachelor Of Business with id 5002 has scored 26 |
+| xyz studying in degree Bachelor Of Technology with id 5004 has scored 36   |
++----------------------------------------------------------------------------+
+==========================================================================================================================

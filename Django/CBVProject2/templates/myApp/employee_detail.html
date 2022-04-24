@@ -1,0 +1,17 @@
+   <!DOCTYPE html>
+{%extends 'MyApp/parent.html'%}
+<html lang="en" dir="ltr">
+  <body>
+    <center>
+      {%block for_child%}
+        <h1 style="color:blue"><u>Employee Details</u></h1>
+         <h2>ID:{{employee.eid}}</h2>
+         <h2>Name:{{employee.ename}}</h2>
+         <h2>salary:{{employee.esal}}</h2>
+         <h2>Designation:{{employee.edesig}}</h2>
+         <h2><a href="/update/{{employee.id}}" class="btn btn-warning">Update</a></h2>
+         <h2><a href="/delete/{{employee.id}}" class="btn btn-danger">Delete</a></h2>
+      {%endblock%}
+    </center>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+create table enrollment(
+SID int unsigned not null,
+MARKS int unsigned not null,
+Deg_ID int unsigned not null,
+foreign key (SID) references student_data(ID),
+foreign key(Deg_ID) references degree_details(Degree_ID)       
+);
+
+
+INSERT INTO ENROLLMENT(SID,MARKS,Deg_ID) VALUES
+(1,99,5007),
+(2,66,5007),
+(3,76,5010),
+(5,26,5002),
+(6,45,5003),
+(7,81,5004),
+(8,31,5004),
+(9,28,5001),
+(11,56,5002),
+(12,79,5005),
+(13,61,5007),
+(14,30,5009),
+(15,41,5010),
+(16,75,5001);
+
+
+
+
+
+
+
+
+

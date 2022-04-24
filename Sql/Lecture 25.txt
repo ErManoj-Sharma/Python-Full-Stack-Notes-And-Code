@@ -1,0 +1,393 @@
+113). Display the id, name, admission date and the day name of the day they took admission.
+ > select id,first_name,admission_date,dayname(admission_date) from student_data;
++----+------------+----------------+-------------------------+
+| id | first_name | admission_date | dayname(admission_date) |
++----+------------+----------------+-------------------------+
+|  1 | Akash      | 2020-03-28     | Saturday                |
+|  2 | Aaishwarya | 2020-05-29     | Friday                  |
+|  3 | Abhay      | 2019-08-07     | Wednesday               |
+|  4 | Anagha     | 2018-12-12     | Wednesday               |
+|  5 | Bishwas    | 2015-02-01     | Sunday                  |
+|  6 | Bimla      | 2021-03-21     | Sunday                  |
+|  7 | Brijesh    | 2021-01-01     | Friday                  |
+|  8 | Arjun      | 2020-12-31     | Thursday                |
+|  9 | Ramya      | 2019-09-25     | Wednesday               |
+| 10 | Sharanya   | 2020-04-15     | Wednesday               |
+| 11 | Suhas      | 2016-05-14     | Saturday                |
+| 12 | Goutham    | 2020-07-20     | Monday                  |
+| 13 | Dilshan    | 2014-02-07     | Friday                  |
+| 14 | Sachin     | 2020-01-01     | Wednesday               |
+| 15 | Tanveer    | 2019-05-09     | Thursday                |
+| 16 | Rupali     | 2020-06-23     | Tuesday                 |
+| 17 | Deepika    | 2017-08-22     | Tuesday                 |
+| 18 | deepika    | 2020-11-05     | Thursday                |
+| 19 | Zhyn       | 2019-06-22     | Saturday                |
+| 20 | rishi      | 2021-01-03     | Sunday                  |
+| 21 | tushar     | 2019-03-06     | Wednesday               |
+| 22 | xyz        | 2022-04-18     | Monday                  |
+| 23 | Emilio     | 2020-02-23     | Sunday                  |
++----+------------+----------------+-------------------------+
+
+========================================================================================================================
+
+114). Display the details of the student who joinined on a Thursday in the month of may.
+ > select * from student_data where admission_date like '%-05-%';
++----+------------+-----------+-----------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result |
++----+------------+-----------+-----------+-----+----------------+--------+
+|  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS   |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS   |
+| 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS   |
++----+------------+-----------+-----------+-----+----------------+--------+
+
+ > select * from student_data where admission_date like '%-05-%' and dayname(admission_date)='thursday';
++----+------------+-----------+---------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City    | Age | Admission_Date | Result |
++----+------------+-----------+---------+-----+----------------+--------+
+| 15 | Tanveer    | Ahmed     | Chennai |  23 | 2019-05-09     | PASS   |
++----+------------+-----------+---------+-----+----------------+--------+
+
+========================================================================================================================
+
+115). Display the details of the students who joined in a leap year.
+ > select *,year(admission_date) from student_data where (year(admission_date)%100=0 and year(admission_date)%400=0) or year(admission_date)%4=0 and year(admission_date)%100!=0;
++----+------------+------------+-----------+-----+----------------+---------+----------------------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  | year(admission_date) |
++----+------------+------------+-----------+-----+----------------+---------+----------------------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |                 2020 |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |                 2020 |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |                 2020 |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |                 2020 |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |                 2016 |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |                 2020 |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |                 2020 |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |                 2020 |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |                 2020 |
+| 23 | Emilio     | Rodriguez  | banglore  |  23 | 2020-02-23     | AWAITED |                 2020 |
+| 24 | A          | B          | C         |  22 | 1600-08-30     | AWAITED |                 1600 |
++----+------------+------------+-----------+-----+----------------+---------+----------------------+
+================================================================================================================================
+116). Write a query to display the Degree Id in which more than 2 students have enrolled and the combined score of the two students is more than 100.
+ > select deg_id from enrollment group by deg_id having count(*)>2 and sum(marks)>100;
++--------+
+| deg_id |
++--------+
+|   5004 |
+|   5007 |
++--------+
+ > select * from enrollment group by deg_id having count(*)>2 and sum(marks)>100;
++-----+-------+--------+
+| SID | MARKS | Deg_ID |
++-----+-------+--------+
+|   7 |    81 |   5004 |
+|   1 |    99 |   5007 |
++-----+-------+--------+
+=====================================================================================================================
+
+117). Write a query to display the number of students who have failed in each degree.
+========================================================================================================================
+118). Write a stored procedure to get the student details based on the city.
+
+DELIMITER &&
+create procedure get_student_info(in city_name varchar(20))
+BEGIN
+select *from student_data where city=city_name;
+END &&
+DELIMITER ; 
+
+> call get_student_info('Mumbai');
++----+------------+-----------+--------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City   | Age | Admission_Date | Result  |
++----+------------+-----------+--------+-----+----------------+---------+
+|  2 | Aaishwarya | Ray       | Mumbai |  32 | 2020-05-29     | PASS    |
+|  3 | Abhay      | Chander   | Mumbai |  27 | 2019-08-07     | PASS    |
+| 10 | Sharanya   | Ahuja     | Mumbai |  20 | 2020-04-15     | AWAITED |
++----+------------+-----------+--------+-----+----------------+---------+
+
+DELIMITER &&
+create procedure student_info(in city_name varchar(20))
+BEGIN
+select *from student_data where city=city_name;
+select count(*) from student_data;
+select First_name as 'FN' from student_data;
+END &&
+DELIMITER ; 
+
+> call student_info('Jaipur');
++----+------------+------------+--------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City   | Age | Admission_Date | Result  |
++----+------------+------------+--------+-----+----------------+---------+
+|  1 | Akash      | Kumar      | Jaipur |  24 | 2020-03-28     | PASS    |
+|  7 | Brijesh    | Kumar      | Jaipur |  22 | 2021-01-01     | PASS    |
+| 13 | Dilshan    | Gupta      | Jaipur |  23 | 2014-02-07     | PASS    |
+| 20 | rishi      | shakshamas | jaipur |  25 | 2021-01-03     | AWAITED |
++----+------------+------------+--------+-----+----------------+---------+
+4 rows in set (0.0012 sec)
+
++----------+
+| count(*) |
++----------+
+|       26 |
++----------+
+1 row in set (0.0012 sec)
+
++------------+
+| FN         |
++------------+
+| Akash      |
+| Aaishwarya |
+| Abhay      |
+| Anagha     |
+| Bishwas    |
+| Bimla      |
+| Brijesh    |
+| Arjun      |
+| Ramya      |
+| Sharanya   |
+| Suhas      |
+| Goutham    |
+| Dilshan    |
+| Sachin     |
+| Tanveer    |
+| Rupali     |
+| Deepika    |
+| deepika    |
+| Zhyn       |
+| rishi      |
+| tushar     |
+| xyz        |
+| Emilio     |
+| A          |
+| Aaa        |
+| Aaaaa      |
++------------+
+==================================================================================================================
+119). Write a procedure to get count of students 
+DELIMITER &&
+create procedure get_total(out total int)
+BEGIN
+select count(*) into total from student_data;
+END &&
+DELIMITER ; 
+
+
+ > select @total ; call get_total(@total); select @total;
++--------+
+| @total |
++--------+
+| NULL   |
++--------+
+
++--------+
+| @total |
++--------+
+|     26 |
++--------+
+
+
+========================================================================================================
+
+==> try to create a stored procedure and then change name , parameter datatype, parameter name etc by alter command/
+
+120). Display the student_data, degree details and enrollment table using a single call.
+DELIMITER &&
+create procedure show_all_tables()
+BEGIN
+select *from student_data ;
+select * from degree_details;
+select * from enrollment;
+END &&
+DELIMITER ; 
+
+ > call show_all_tables();
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | PASS    |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | PASS    |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED |
+| 21 | tushar     | thammanna  | ahmedabad |  24 | 2019-03-06     | AWAITED |
+| 22 | xyz        | qwrt       | mnbv      |  22 | 2022-04-18     | AWAITED |
+| 23 | Emilio     | Rodriguez  | banglore  |  23 | 2020-02-23     | AWAITED |
+| 24 | A          | B          | C         |  22 | 1600-08-30     | AWAITED |
+| 25 | Aaa        | Bbbb       | Cccc      |  23 | 1700-08-30     | AWAITED |
+| 26 | Aaaaa      | Bbbbbbb    | Ccccccc   |  23 | 1800-08-30     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+26 rows in set (0.0015 sec)
+
++-----------+----------------------------+------------------+-----------+-----------+
+| Degree_ID | Degree_Name                | Length_Of_Course | Fees      | min_marks |
++-----------+----------------------------+------------------+-----------+-----------+
+|      5000 | Bachelor Of Commerce       |                3 | 200000.00 |        35 |
+|      5001 | Master Of Commerce         |                3 | 250000.00 |        40 |
+|      5002 | Bachelor Of Business       |                3 | 600000.00 |        35 |
+|      5003 | Master Of Business         |                3 | 500000.00 |        50 |
+|      5004 | Bachelor Of Technology     |                4 | 400000.00 |        35 |
+|      5005 | Master Of Technology       |                3 | 100000.00 |        40 |
+|      5006 | Phd Technology             |                5 | 300000.00 |        50 |
+|      5007 | Phd Business               |                5 |  90000.00 |        50 |
+|      5008 | Phd Commerce               |                4 |  50000.00 |        45 |
+|      5009 | MBBS                       |                5 | 100000.00 |        40 |
+|      5010 | MD                         |                4 | 500000.00 |        35 |
+|      5011 | Associate Bechlore Physics |                3 |  75000.00 |        35 |
++-----------+----------------------------+------------------+-----------+-----------+
+12 rows in set (0.0015 sec)
+
++-----+-------+--------+
+| SID | MARKS | Deg_ID |
++-----+-------+--------+
+|   1 |    99 |   5007 |
+|   2 |    66 |   5007 |
+|   3 |    76 |   5010 |
+|   5 |    26 |   5002 |
+|   6 |    45 |   5003 |
+|   7 |    81 |   5004 |
+|   8 |    31 |   5004 |
+|   9 |    28 |   5001 |
+|  11 |    56 |   5002 |
+|  12 |    79 |   5005 |
+|  13 |    61 |   5007 |
+|  14 |    30 |   5009 |
+|  15 |    41 |   5010 |
+|  16 |    75 |   5001 |
+|  22 |    36 |   5004 |
++-----+-------+--------+
+===============================================================================================================
+ > show procedure status where db='m';
++----+---------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db | Name                | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++----+---------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| m  | get_student_details | PROCEDURE | root@localhost | 2022-03-27 17:38:47 | 2022-03-27 17:38:47 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| m  | get_student_info    | PROCEDURE | root@localhost | 2022-03-27 17:44:01 | 2022-03-27 17:44:01 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| m  | get_total           | PROCEDURE | root@localhost | 2022-03-27 18:05:53 | 2022-03-27 18:05:53 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| m  | show_all_tables     | PROCEDURE | root@localhost | 2022-03-27 17:54:09 | 2022-03-27 17:54:09 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| m  | student_info        | PROCEDURE | root@localhost | 2022-03-27 17:51:18 | 2022-03-27 17:51:18 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++----+---------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+
+
+ > drop procedure get_student_details ;
+Query OK, 0 rows affected (0.2556 sec)
+
+ > show procedure status where db='m';
++----+------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db | Name             | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++----+------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| m  | get_student_info | PROCEDURE | root@localhost | 2022-03-27 17:44:01 | 2022-03-27 17:44:01 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| m  | get_total        | PROCEDURE | root@localhost | 2022-03-27 18:05:53 | 2022-03-27 18:05:53 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| m  | show_all_tables  | PROCEDURE | root@localhost | 2022-03-27 17:54:09 | 2022-03-27 17:54:09 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| m  | student_info     | PROCEDURE | root@localhost | 2022-03-27 17:51:18 | 2022-03-27 17:51:18 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++----+------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+4 rows in set (0.0681 sec)
+=================================================================================================================
+121). Display the grades of the students based on their marks. Grade A if marks are >98, Grade 8 between 75 and 89, Grade C between sa and 74 and Grade D otherwise. using if else?
+DELIMITER &&
+create procedure grade(in id_num int)
+BEGIN
+declare  grade varchar(10);
+declare score int default 0;
+select marks into score from enrollment where sid=id_num;
+if score >90 then
+	set grade='Grade A';
+elseif score>=75 and score<=89 then
+	set grade='Grade B';
+elseif score>=60 and score <=74 then
+	set grade='Grade C';
+else 
+	set grade='Grade D';
+end if;
+select grade;
+END &&
+DELIMITER ; 
+
+ > call grade(1);
++---------+
+| grade   |
++---------+
+| Grade A |
++---------+
+
+ MySQL  localhost:3306 ssl  m  SQL > call grade(16);
++---------+
+| grade   |
++---------+
+| Grade B |
++---------+
+ MySQL  localhost:3306 ssl  m  SQL > call grade(13);
++---------+
+| grade   |
++---------+
+| Grade C |
++---------+
+ MySQL  localhost:3306 ssl  m  SQL > call grade(6);
++---------+
+| grade   |
++---------+
+| Grade D |
++---------+
+
+====================================================================================================================================
+122). Do the same as question 121 using CASE.
+
+DELIMITER &&
+create procedure grade2(in id_num int)
+BEGIN
+declare  grade varchar(10);
+declare score int default 0;
+select marks into score from enrollment where sid=id_num;
+case
+	when score >90 then
+		set grade='Grade A';
+	when score>=75 and score<=89 then
+		set grade='Grade B';
+	when score>=60 and score <=74 then
+		set grade='Grade C';
+	else 
+		set grade='Grade D';
+end case;
+select grade;
+END &&
+DELIMITER ; 
+
+
+ > call grade2(1);
++---------+
+| grade   |
++---------+
+| Grade A |
++---------+
+ > call grade2(16);
++---------+
+| grade   |
++---------+
+| Grade B |
++---------+
+ > call grade2(6);
++---------+
+| grade   |
++---------+
+| Grade D |
++---------+
+ > call grade2(13);
++---------+
+| grade   |
++---------+
+| Grade C |
++---------+
+=============================================================================================================

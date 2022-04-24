@@ -1,0 +1,293 @@
+91) write a query to display the average marks scored in each subject along with the name, id, fees of the subject. where their is at least one enrollment?
+ > select d.degree_name,d.degree_id,d.fees,avg(e.marks) from enrollment as e inner join degree_details as d on d.degree_id=e.deg_id group by degree_name,degree_id;
++------------------------+-----------+-----------+--------------+
+| degree_name            | degree_id | fees      | avg(e.marks) |
++------------------------+-----------+-----------+--------------+
+| Phd Business           |      5007 |  90000.00 |      75.3333 |
+| MD                     |      5010 | 500000.00 |      58.5000 |
+| Bachelor Of Business   |      5002 | 600000.00 |      41.0000 |
+| Master Of Business     |      5003 | 500000.00 |      45.0000 |
+| Bachelor Of Technology |      5004 | 400000.00 |      49.3333 |
+| Master Of Commerce     |      5001 | 250000.00 |      51.5000 |
+| Master Of Technology   |      5005 | 100000.00 |      79.0000 |
+| MBBS                   |      5009 | 100000.00 |      30.0000 |
++------------------------+-----------+-----------+--------------+
+=============================================================================================================================================================
+
+92). Write a query to display the 1d,name, age and marks of the students who have scored more than the overall average in descanding order their marks scored?
+ > select s.id,s.first_name,s.age,e.marks from student_data as s inner join enrollment as e on s.id=e.sid and e.marks>(select avg(e.marks) from enrollment as e) order by e.marks desc;
++----+------------+-----+-------+
+| id | first_name | age | marks |
++----+------------+-----+-------+
+|  1 | Akash      |  24 |    99 |
+|  7 | Brijesh    |  22 |    81 |
+| 12 | Goutham    |  26 |    79 |
+|  3 | Abhay      |  27 |    76 |
+| 16 | Rupali     |  21 |    75 |
+|  2 | Aaishwarya |  32 |    66 |
+| 13 | Dilshan    |  23 |    61 |
+| 11 | Suhas      |  27 |    56 |
++----+------------+-----+-------+
+============================================================================================================================================================
+93). Write a query to display the sum of scores scored by students in each subject. maximun of um of scores
+ > select deg_id,sum(marks) from enrollment group by deg_id;
++--------+------------+
+| deg_id | sum(marks) |
++--------+------------+
+|   5001 |        103 |
+|   5002 |         82 |
+|   5003 |         45 |
+|   5004 |        148 |
+|   5005 |         79 |
+|   5007 |        226 |
+|   5009 |         30 |
+|   5010 |        117 |
++--------+------------+
+ > select max(r1.sm)from (select deg_id,sum(marks) as 'sm' from enrollment group by deg_id) as r1;
++------------+
+| max(r1.sm) |
++------------+
+|        226 |
++------------+
+============================================================================================================================================================
+94). Write a query to display the minimum of sum of scores scored by students in each subject.
+ > select min(r1.sm)from (select deg_id,sum(marks) as 'sm' from enrollment group by deg_id) as r1;
++------------+
+| min(r1.sm) |
++------------+
+|         30 |
++------------+
+==============================================================================================================================================
+
+95). Write a query to display id and name of students who have not enrolled in any course using joins.
+ > select s.id,s.first_name from student_data as s left join enrollment as e on s.id=e.sid where isnull(sid);
++----+------------+
+| id | first_name |
++----+------------+
+|  4 | Anagha     |
+| 10 | Sharanya   |
+| 17 | Deepika    |
+| 18 | deepika    |
+| 19 | Zhyn       |
+| 20 | rishi      |
+| 21 | tushar     |
+| 23 | Emilio     |
++----+------------+
+===============================================================================================================================
+
+96). Write a query to display the first name, id, degree nane, marks and results of top 3 students overall using join.
+==> if two table have foreign keys between them we can join them .
+
+> select s.id,s.first_name ,d.degree_name , e.marks from student_data as s 
+inner join 
+enrollment as e 
+inner join 
+degree_details as d 
+on s.id=e.sid and d.degree_id=e.deg_id 
+order by marks desc 
+limit 3;
++----+------------+------------------------+-------+
+| id | first_name | degree_name            | marks |
++----+------------+------------------------+-------+
+|  1 | Akash      | Phd Business           |    99 |
+|  7 | Brijesh    | Bachelor Of Technology |    81 |
+| 12 | Goutham    | Master Of Technology   |    79 |
++----+------------+------------------------+-------+
+=============================================================================================================================
+
+97). Write a query to display the name, id, degree nane, marks and results of botton 5 students overall.
+> select s.id,s.first_name ,d.degree_name , e.marks from
+ student_data as s
+ inner join 
+enrollment as e 
+inner join 
+degree_details as d 
+on s.id=e.sid and d.degree_id=e.deg_id 
+order by marks  
+limit 5;
++----+------------+------------------------+-------+
+| id | first_name | degree_name            | marks |
++----+------------+------------------------+-------+
+|  5 | Bishwas    | Bachelor Of Business   |    26 |
+|  9 | Ramya      | Master Of Commerce     |    28 |
+| 14 | Sachin     | MBBS                   |    30 |
+|  8 | Arjun      | Bachelor Of Technology |    31 |
+| 22 | xyz        | Bachelor Of Technology |    36 |
++----+------------+------------------------+-------+
+
+> select * from (select s.id,s.first_name ,d.degree_name , e.marks from student_data as s inner join enrollment as e inner join degree_details as d on s.id=e.sid and d.degree_id=e.deg_id order by marks  limit 5) as r1 order by r1.marks desc;
++----+------------+------------------------+-------+
+| id | first_name | degree_name            | marks |
++----+------------+------------------------+-------+
+| 22 | xyz        | Bachelor Of Technology |    36 |
+|  8 | Arjun      | Bachelor Of Technology |    31 |
+| 14 | Sachin     | MBBS                   |    30 |
+|  9 | Ramya      | Master Of Commerce     |    28 |
+|  5 | Bishwas    | Bachelor Of Business   |    26 |
++----+------------+------------------------+-------+
+=======================================================================================================================================
+98). Write a query to display all the details of students and their course along with marks who have passed in descending order of age
+> select s.*,d.*,e.marks from student_data as s inner join enrollment as e inner join degree_details as d on s.id=e.sid and d.degree_id=e.deg_id where s.result='PASS' order by age desc;
++----+------------+-----------+-----------+-----+----------------+--------+-----------+------------------------+------------------+-----------+-----------+-------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result | Degree_ID | Degree_Name            | Length_Of_Course | Fees      | min_marks | marks |
++----+------------+-----------+-----------+-----+----------------+--------+-----------+------------------------+------------------+-----------+-----------+-------+
+|  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS   |      5007 | Phd Business           |                5 |  90000.00 |        50 |    66 |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS   |      5010 | MD                     |                4 | 500000.00 |        35 |    76 |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS   |      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |    56 |
+| 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS   |      5005 | Master Of Technology   |                3 | 100000.00 |        40 |    79 |
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS   |      5007 | Phd Business           |                5 |  90000.00 |        50 |    99 |
+| 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS   |      5007 | Phd Business           |                5 |  90000.00 |        50 |    61 |
+| 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS   |      5010 | MD                     |                4 | 500000.00 |        35 |    41 |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS   |      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |    81 |
+| 16 | Rupali     | Gupta     | Chennai   |  21 | 2020-06-23     | PASS   |      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |    75 |
++----+------------+-----------+-----------+-----+----------------+--------+-----------+------------------------+------------------+-----------+-----------+-------+
+==================================================================================================================================================================
+
+99). Write a query to display all the details of students and their course who have failed in ascending order of marks.
+> select s.*,d.*,e.marks from student_data as s inner join enrollment as e inner join degree_details as d on s.id=e.sid and d.degree_id=e.deg_id where s.result='FAIL' order by e.marks ;
++----+------------+-----------+-----------+-----+----------------+--------+-----------+------------------------+------------------+-----------+-----------+-------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result | Degree_ID | Degree_Name            | Length_Of_Course | Fees      | min_marks | marks |
++----+------------+-----------+-----------+-----+----------------+--------+-----------+------------------------+------------------+-----------+-----------+-------+
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL   |      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |    26 |
+|  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL   |      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |    28 |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL   |      5009 | MBBS                   |                5 | 100000.00 |        40 |    30 |
+|  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL   |      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |    31 |
+|  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL   |      5003 | Master Of Business     |                3 | 500000.00 |        50 |    45 |
++----+------------+-----------+-----------+-----+----------------+--------+-----------+------------------------+------------------+-----------+-----------+-------+
+
+===================================================================================================================================================================
+100). Display details of students and degree courses only for those who have taken the courses.
+ > select s.*,d.*from student_data as s inner join enrollment as e inner join degree_details as d on s.id=e.sid and d.degree_id=e.deg_id ;
++----+------------+-----------+-----------+-----+----------------+---------+-----------+------------------------+------------------+-----------+-----------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  | Degree_ID | Degree_Name            | Length_Of_Course | Fees      | min_marks |
++----+------------+-----------+-----------+-----+----------------+---------+-----------+------------------------+------------------+-----------+-----------+
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS    |      5007 | Phd Business           |                5 |  90000.00 |        50 |
+|  2 | Aaishwarya | Ray       | Mumbai    |  32 | 2020-05-29     | PASS    |      5007 | Phd Business           |                5 |  90000.00 |        50 |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS    |      5010 | MD                     |                4 | 500000.00 |        35 |
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL    |      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |
+|  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL    |      5003 | Master Of Business     |                3 | 500000.00 |        50 |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |
+|  8 | Arjun      | Shet      | Bangalore |  19 | 2020-12-31     | FAIL    |      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |
+|  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL    |      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |
+| 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS    |      5005 | Master Of Technology   |                3 | 100000.00 |        40 |
+| 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS    |      5007 | Phd Business           |                5 |  90000.00 |        50 |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |      5009 | MBBS                   |                5 | 100000.00 |        40 |
+| 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS    |      5010 | MD                     |                4 | 500000.00 |        35 |
+| 16 | Rupali     | Gupta     | Chennai   |  21 | 2020-06-23     | PASS    |      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |
+| 22 | xyz        | qwrt      | mnbv      |  22 | 2022-04-18     | AWAITED |      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |
++----+------------+-----------+-----------+-----+----------------+---------+-----------+------------------------+------------------+-----------+-----------+
+==============================================================================================================================================================
+
+101). Write a query to display only the Rows of Student data table that have odd ID.
+ > select *from student_data where mod(id,2)=1 ;
+ > select *from student_data where id rlike '[1,3,5,7,9]$';
++----+------------+-----------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++----+------------+-----------+-----------+-----+----------------+---------+
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS    |
+|  3 | Abhay      | Chander   | Mumbai    |  27 | 2019-08-07     | PASS    |
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |
+|  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |
+| 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS    |
+| 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS    |
+| 17 | Deepika    | Verma     | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 19 | Zhyn       | Jackman   | Banglore  |  24 | 2019-06-22     | AWAITED |
+| 21 | tushar     | thammanna | ahmedabad |  24 | 2019-03-06     | AWAITED |
+| 23 | Emilio     | Rodriguez | banglore  |  23 | 2020-02-23     | AWAITED |
++----+------------+-----------+-----------+-----+----------------+---------+
+===================================================================================================================
+103). Write a query to display only the Rous of the Degree details table that have even ID.
+ > select *from degree_detailswhere mod(degree_details,2)=0 ;
+ > select *from degree_detailswhere degree_details%2=0 ;
+ > select *from degree_details where degree_detailsrlike '[2,4,6,8,0]$';
++-----------+------------------------+------------------+-----------+-----------+
+| Degree_ID | Degree_Name            | Length_Of_Course | Fees      | min_marks |
++-----------+------------------------+------------------+-----------+-----------+
+|      5000 | Bachelor Of Commerce   |                3 | 200000.00 |        35 |
+|      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |
+|      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |
+|      5006 | Phd Technology         |                5 | 300000.00 |        50 |
+|      5008 | Phd Commerce           |                4 |  50000.00 |        45 |
+|      5010 | MD                     |                4 | 500000.00 |        35 |
++-----------+------------------------+------------------+-----------+-----------+
+
+====================================================================================================================================
+104). Write a query to clone the Student table.
+ > create table student_data_clone_1 like student_data;
+ > show tables;
++----------------------+
+| Tables_in_m          |
++----------------------+
+| degree_details       |
+| enroll               |
+| enroll2              |
+| enrollment           |
+| stu                  |
+| student_data         |
+| student_data_clone_1 |
++----------------------+
+ > describe student_data_clone_1;
++----------------+-------------------------------+------+-----+---------+----------------+
+| Field          | Type                          | Null | Key | Default | Extra          |
++----------------+-------------------------------+------+-----+---------+----------------+
+| ID             | int unsigned                  | NO   | PRI | NULL    | auto_increment |
+| First_Name     | varchar(20)                   | NO   |     | NULL    |                |
+| Last_Name      | varchar(20)                   | NO   |     | NULL    |                |
+| City           | varchar(20)                   | NO   |     | NULL    |                |
+| Age            | int unsigned                  | NO   |     | NULL    |                |
+| Admission_Date | date                          | NO   |     | NULL    |                |
+| Result         | enum('PASS','FAIL','AWAITED') | NO   |     | AWAITED |                |
++----------------+-------------------------------+------+-----+---------+----------------+
+ > select * from student_data_clone_1;
+Empty set (0.0540 sec)
++-----------------------------------------------------------------------------------------------------------+
+ > insert into student_data_clone_1(select * from student_data);                                            |
+Query OK, 23 rows affected (0.1554 sec)                                                                     |
+                                                                                                            |
+ > select * from student_data_clone_1;                                                                      |
++----+------------+------------+-----------+-----+----------------+---------+                               |
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |                               |
++----+------------+------------+-----------+-----+----------------+---------+                               |
+|  1 | Akash      | Kumar      | Jaipur    |  24 | 2020-03-28     | PASS    |                               |
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |                               |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |                               |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED |                               |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |                               |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |                               |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | PASS    |                               |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |                               |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |                               |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |                               |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |                               |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |                               |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |                               | 
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |                               |
+| 15 | Tanveer    | Ahmed      | Chennai   |  23 | 2019-05-09     | PASS    |                               |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |                               |
+| 18 | deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |                               |
+| 19 | Zhyn       | Jackman    | Banglore  |  24 | 2019-06-22     | AWAITED |                               |
+| 20 | rishi      | shakshamas | jaipur    |  25 | 2021-01-03     | AWAITED |                               |
+| 21 | tushar     | thammanna  | ahmedabad |  24 | 2019-03-06     | AWAITED |                               |
+| 22 | xyz        | qwrt       | mnbv      |  22 | 2022-04-18     | AWAITED |                               |
+| 23 | Emilio     | Rodriguez  | banglore  |  23 | 2020-02-23     | AWAITED |                               |
++----+------------+------------+-----------+-----+----------------+---------+                               |
++-----------------------------------------------------------------------------------------------------------+
+===============================================================================================================
+105). Display the current date and time.
+ > select curdate();
++------------+
+| curdate()  |
++------------+
+| 2022-03-24 |
++------------+
+1 row in set (0.0430 sec)
+ MySQL  localhost:3306 ssl  m  SQL > select curtime();
++-----------+
+| curtime() |
++-----------+
+| 12:22:58  |
++-----------+
+=============================================================================================================

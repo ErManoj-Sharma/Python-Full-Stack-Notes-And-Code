@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+<h1> Student Details</h1>
+<table border="2">
+    <tr>
+        <td>Number</td>
+        <td>Name</td>
+        <td>Marks</td>
+    </tr>
+    {%for i in stud%}
+    <tr>
+        <td>{{i.number}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.marks}}</td>
+    </tr>
+    {%endfor%}
+
+</table>
+</center>
+</body>
+</html>

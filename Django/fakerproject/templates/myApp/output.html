@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>output</title>
+</head>
+<body>
+<center>
+<h1> Database for students</h1>
+<table border="2">
+    <tr>
+        <th>Name</th>
+        <th> Rollno </th>
+        <th>Marks</th>
+        <th> Date Of Birth</th>
+        <th> Email</th>
+    </tr>
+    {%for i in stud%}
+    <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.roll}} </td>
+        <td>{{i.marks}}</td>
+        <td> {{ i.dob }}</td>
+        <td>{{  i.email}}</td>
+    </tr>
+    {%endfor%}
+</table>
+
+
+
+</center>
+</body>
+</html>

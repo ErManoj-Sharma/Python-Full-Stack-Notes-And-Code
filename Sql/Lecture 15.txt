@@ -1,0 +1,201 @@
+Q.38 waq to display details of degree who have fees more than 20000 and duration 4 yr or less?
+ MySQL  localhost:3306 ssl  m  SQL > select * from degree_details  where fees >=200000 and length_of_course<=4;
++-----------+------------------------+------------------+-----------+-----------+
+| Degree_ID | Degree_Name            | Length_Of_Course | Fees      | min_marks |
++-----------+------------------------+------------------+-----------+-----------+
+|      5000 | Bachelor Of Commerce   |                3 | 200000.00 |        35 |
+|      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |
+|      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |
+|      5003 | Master Of Business     |                3 | 500000.00 |        50 |
+|      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |
+|      5010 | MD                     |                4 | 500000.00 |        35 |
++-----------+------------------------+------------------+-----------+-----------+
+
+=========================================================================================================
+
+Q.39 waq to display details of students whose age is less than 22 or greather than 25 ?
+ > select* from student_data where age<22 or age>25;
+OR
+ > select* from student_data where age not between 22 and  25;
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |
+|  3 | Abhay      | Chander    | Mumbai    |  27 | 2019-08-07     | PASS    |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  8 | Arjun      | Shet       | Bangalore |  19 | 2020-12-31     | FAIL    |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 11 | Suhas      | Rai        | Bangalore |  27 | 2016-05-14     | PASS    |
+| 12 | Goutham    | Sharma     | Ahmedabad |  26 | 2020-07-20     | PASS    |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | Deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+================================================================================================
+
+Q.40 waq to display details of students whose age is not between 22 and 25 in desc order of first name ? 
+ MySQL  localhost:3306 ssl  m  SQL > select* from student_data where age between 22 and  25 order by first_name desc;
++----+------------+-----------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++----+------------+-----------+-----------+-----+----------------+---------+
+| 19 | Zhyn       | Jackman   | Banglore  |  24 | 2019-06-22     | AWAITED |
+| 15 | Tanveer    | Ahmed     | Chennai   |  23 | 2019-05-09     | PASS    |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |
+|  9 | Ramya      | Bose      | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 13 | Dilshan    | Gupta     | Jaipur    |  23 | 2014-02-07     | PASS    |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS    |
+|  4 | Anagha     | Ahuja     | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  1 | Akash      | Kumar     | Jaipur    |  24 | 2020-03-28     | PASS    |
++----+------------+-----------+-----------+-----+----------------+---------+
+==============================================================================================================
+Q.41 display the last_name of all student and display no of 'S''s' in theeir lastname?
+
+ >  select last_name, char_length(last_name)-char_length(replace(lower(last_name),'s','')) as SSS from student_data;
+ > select last_name, char_length(last_name)-char_length(replace(replace(last_name,'s',''),'S','')) as SSS from student_data;
++------------+-----+
+| last_name  | SSS |
++------------+-----+
+| Kumar      |   0 |
+| Ray        |   0 |
+| Chander    |   0 |
+| Ahuja      |   0 |
+| Bora       |   0 |
+| Bhatt      |   0 |
+| Kumar      |   0 |
+| Shet       |   1 |
+| Bose       |   1 |
+| Ahuja      |   0 |
+| Rai        |   0 |
+| Sharma     |   1 |
+| Gupta      |   0 |
+| Acharya    |   0 |
+| Ahmed      |   0 |
+| Gupta      |   0 |
+| Verma      |   0 |
+| Chatterjee |   0 |
+| Jackman    |   0 |
+| shakshamas |   3 |
+| thammanna  |   0 |
++------------+-----+
+ > select last_name, char_length(last_name)-char_length(replace(replace(last_name,'s',''),'S','')) as SSS from student_data
+ where char_length(last_name)-char_length(replace(replace(last_name,'s',''),'S',''))>0;
++------------+-----+
+| last_name  | SSS |
++------------+-----+
+| Shet       |   1 |
+| Bose       |   1 |
+| Sharma     |   1 |
+| shakshamas |   3 |
++------------+-----+
+====================================================================================================================================
+
+Q.42 display details of students whose first name have exatclty 1 'i'?
+display details of students whose first name and last name together have 2 't'?
+
+> select * from student_data  where char_length(first_name)-char_length(replace(lower(first_name),'i',''))=1;
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |
+|  5 | Bishwas    | Bora       | Ahmedabad |  44 | 2015-02-01     | FAIL    |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  7 | Brijesh    | Kumar      | Jaipur    |  22 | 2021-01-01     | PASS    |
+| 13 | Dilshan    | Gupta      | Jaipur    |  23 | 2014-02-07     | PASS    |
+| 14 | Sachin     | Acharya    | Bangalore |  22 | 2020-01-01     | FAIL    |
+| 16 | Rupali     | Gupta      | Chennai   |  21 | 2020-06-23     | PASS    |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | Deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+ 
+
+> select * from student_data  where char_length(first_name)-char_length(replace(lower(first_name),'t','')) +
+ char_length(last_name)-char_length(replace(lower(last_name),'t',''))=2;
+> select * from student_data  where char_length(concat(first_name,last_name))-char_length(replace(concat(lower(first_name),lower(last_name)),'t',''))=2;
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+| 18 | Deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
+| 21 | tushar     | thammanna  | ahmedabad |  24 | 2019-03-06     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+
+============================================================================================================
+Q.43 waq to display details of student whose first name starts with 's'.
+ MySQL  localhost:3306 ssl  m  SQL > select * from student_data where first_name like 's%';
++----+------------+-----------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++----+------------+-----------+-----------+-----+----------------+---------+
+| 10 | Sharanya   | Ahuja     | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |
++----+------------+-----------+-----------+-----+----------------+---------+
+3 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  m  SQL > select * from student_data where first_name rlike '^s';
++----+------------+-----------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++----+------------+-----------+-----------+-----+----------------+---------+
+| 10 | Sharanya   | Ahuja     | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 11 | Suhas      | Rai       | Bangalore |  27 | 2016-05-14     | PASS    |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL    |
++----+------------+-----------+-----------+-----+----------------+---------+
+
+Q. waq to display details of student whose first name starts with 'Bim'.
+ 
+MySQL  localhost:3306 ssl  m  SQL > select * from student_data where first_name like 'bim%';
++----+------------+-----------+-----------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result |
++----+------------+-----------+-----------+-----+----------------+--------+
+|  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL   |
++----+------------+-----------+-----------+-----+----------------+--------+
+1 row in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  m  SQL > select * from student_data where first_name rlike '^bim';
++----+------------+-----------+-----------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result |
++----+------------+-----------+-----------+-----+----------------+--------+
+|  6 | Bimla      | Bhatt     | Ahmedabad |  21 | 2021-03-21     | FAIL   |
++----+------------+-----------+-----------+-----+----------------+--------+
+=============================================================================================================================
+Q.44 waq to display details of students whose last name ends with' A'. 
+ waq to display details of students whose last name ends with 'ma'. 
+
+ > select * from student_data where first_name rlike 'a$';
++----+------------+------------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name  | City      | Age | Admission_Date | Result  |
++----+------------+------------+-----------+-----+----------------+---------+
+|  2 | Aaishwarya | Ray        | Mumbai    |  32 | 2020-05-29     | PASS    |
+|  4 | Anagha     | Ahuja      | Chennai   |  22 | 2018-12-12     | AWAITED |
+|  6 | Bimla      | Bhatt      | Ahmedabad |  21 | 2021-03-21     | FAIL    |
+|  9 | Ramya      | Bose       | Bangalore |  25 | 2019-09-25     | FAIL    |
+| 10 | Sharanya   | Ahuja      | Mumbai    |  20 | 2020-04-15     | AWAITED |
+| 17 | Deepika    | Verma      | Ahmedabad |  26 | 2017-08-22     | AWAITED |
+| 18 | Deepika    | Chatterjee | Ahmedabad |  29 | 2020-11-05     | AWAITED |
++----+------------+------------+-----------+-----+----------------+---------+
+
+ > select * from student_data where last_name rlike 'ma$';
++----+------------+-----------+-----------+-----+----------------+---------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result  |
++----+------------+-----------+-----------+-----+----------------+---------+
+| 12 | Goutham    | Sharma    | Ahmedabad |  26 | 2020-07-20     | PASS    |
+| 17 | Deepika    | Verma     | Ahmedabad |  26 | 2017-08-22     | AWAITED |
++----+------------+-----------+-----------+-----+----------------+---------+
+===========================================================================================================
+Q.45 waq to display details of students who join on 1st of any month?
+> select * from student_data where admission_date rlike '[0-9]+-[0-9]+-01' ;
+> select * from student_data where admission_date like '%01' ;
++----+------------+-----------+-----------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result |
++----+------------+-----------+-----------+-----+----------------+--------+
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL   |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS   |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL   |
++----+------------+-----------+-----------+-----+----------------+--------+
+
+ > select * from student_data where admission_date rlike '01$' ;
++----+------------+-----------+-----------+-----+----------------+--------+
+| ID | First_Name | Last_Name | City      | Age | Admission_Date | Result |
++----+------------+-----------+-----------+-----+----------------+--------+
+|  5 | Bishwas    | Bora      | Ahmedabad |  44 | 2015-02-01     | FAIL   |
+|  7 | Brijesh    | Kumar     | Jaipur    |  22 | 2021-01-01     | PASS   |
+| 14 | Sachin     | Acharya   | Bangalore |  22 | 2020-01-01     | FAIL   |
++----+------------+-----------+-----------+-----+----------------+--------+
+===========================================================================================================

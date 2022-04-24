@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{%extends 'myApp/parent.html'%}
+<html lang="en" dir="ltr">
+  <body>
+    <center>
+      {%block for_child%}
+      <h1><u>List of students</u></h1>
+      {%for i in student_list%}
+      <h2><a href="/{{i.id}}">{{i.name}}'s Details</a></h2>
+      {%endfor%}
+      {%endblock%}
+    </center>
+  </body>
+</html>

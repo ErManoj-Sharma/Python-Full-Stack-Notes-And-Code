@@ -1,0 +1,53 @@
+Q 84).waq to display degree name  and degree id of course that has highest enrollment?// if two degree have highest enrollment ?
+
+select degree_name ,degree_id from degree_details,enrollment where degree_id=deg_id 
+group by degree_name,degree_id
+having count(*)in (
+select max(R1.count) from (select deg_id,count(*)as 'count' from enrollment group by deg_id) as R1);
+
+// we can use = in the place of in but it may give error some time 
+select degree_name ,degree_id from degree_details,enrollment where degree_id=deg_id 
+group by degree_name,degree_id
+having count(*)= (
+select max(R1.count) from (select deg_id,count(*)as 'count' from enrollment group by deg_id) as R1);
+===============================================================================================================
+85.) waq to display cross product of degree_details and enrollment table along with minimn marks scroed in each group?
+ > select * ,min(marks)from degree_details,enrollment where degree_id=deg_id group by degree_id,degree_name ;
++-----------+------------------------+------------------+-----------+-----------+-----+-------+--------+------------+
+| Degree_ID | Degree_Name            | Length_Of_Course | Fees      | min_marks | SID | MARKS | Deg_ID | min(marks) |
++-----------+------------------------+------------------+-----------+-----------+-----+-------+--------+------------+
+|      5007 | Phd Business           |                5 |  90000.00 |        50 |   1 |    99 |   5007 |         61 |
+|      5010 | MD                     |                4 | 500000.00 |        35 |   3 |    76 |   5010 |         41 |
+|      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |   5 |    26 |   5002 |         26 |
+|      5003 | Master Of Business     |                3 | 500000.00 |        50 |   6 |    45 |   5003 |         45 |
+|      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |   7 |    81 |   5004 |         31 |
+|      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |   9 |    28 |   5001 |         28 |
+|      5005 | Master Of Technology   |                3 | 100000.00 |        40 |  12 |    79 |   5005 |         79 |
+|      5009 | MBBS                   |                5 | 100000.00 |        40 |  14 |    30 |   5009 |         30 |
++-----------+------------------------+------------------+-----------+-----------+-----+-------+--------+------------+
+ > select * ,min(marks)from degree_details,enrollment where degree_id=deg_id group by degree_id,degree_name,sid,marks ;
++-----------+------------------------+------------------+-----------+-----------+-----+-------+--------+------------+
+| Degree_ID | Degree_Name            | Length_Of_Course | Fees      | min_marks | SID | MARKS | Deg_ID | min(marks) |
++-----------+------------------------+------------------+-----------+-----------+-----+-------+--------+------------+
+|      5007 | Phd Business           |                5 |  90000.00 |        50 |   1 |    99 |   5007 |         99 |
+|      5007 | Phd Business           |                5 |  90000.00 |        50 |   2 |    66 |   5007 |         66 |
+|      5010 | MD                     |                4 | 500000.00 |        35 |   3 |    76 |   5010 |         76 |
+|      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |   5 |    26 |   5002 |         26 |
+|      5003 | Master Of Business     |                3 | 500000.00 |        50 |   6 |    45 |   5003 |         45 |
+|      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |   7 |    81 |   5004 |         81 |
+|      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |   8 |    31 |   5004 |         31 |
+|      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |   9 |    28 |   5001 |         28 |
+|      5002 | Bachelor Of Business   |                3 | 600000.00 |        35 |  11 |    56 |   5002 |         56 |
+|      5005 | Master Of Technology   |                3 | 100000.00 |        40 |  12 |    79 |   5005 |         79 |
+|      5007 | Phd Business           |                5 |  90000.00 |        50 |  13 |    61 |   5007 |         61 |
+|      5009 | MBBS                   |                5 | 100000.00 |        40 |  14 |    30 |   5009 |         30 |
+|      5010 | MD                     |                4 | 500000.00 |        35 |  15 |    41 |   5010 |         41 |
+|      5001 | Master Of Commerce     |                3 | 250000.00 |        40 |  16 |    75 |   5001 |         75 |
+|      5004 | Bachelor Of Technology |                4 | 400000.00 |        35 |  22 |    36 |   5004 |         36 |
++-----------+------------------------+------------------+-----------+-----------+-----+-------+--------+------------+
+===========================================================================================================================
+
+
+
+
+

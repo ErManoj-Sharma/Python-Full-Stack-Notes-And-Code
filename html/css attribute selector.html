@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css atribute selector</title>
+    <style>
+/*     Case 1*/
+        a[target]{
+        color:red;}
+
+/*       Case 2*/
+        a[target=_blank]
+        {
+        color:blue;
+        }
+        a[target=_top]{
+        color:green;}
+/* Case 3*/
+        [title~=mj]
+        {
+        border:20px solid blue;
+        width:200px;
+        height:200px;}
+        [title~=A]
+        {
+        border:20px solid green;
+         width:200px;
+        height:200px;}
+/* Case :4 */
+        [class|="one"]{
+        color:blue;}
+
+
+/* Case :5*/
+
+         [class^=t]{
+        color:green;}
+/* Case :6 */
+        [class$="1"]
+        {
+        color:pink;
+        }
+        [class$="2"]
+        {
+        color:yellow;
+        }
+        [class$="3"]
+        {
+        color:brown;
+        }
+/* Case : 7 */
+        [class*="x"]{
+        color:orange;}
+        [class*="q"]{
+        color:yellow;}
+
+    </style>
+
+</head>
+<body>
+<center>
+    <h1> case : 1</h1>
+    <a href="https://www.youtube.com/" target="_parent"> Click here</a>
+<hr>
+    <h1> case : 2</h1>
+ <a href="https://www.youtube.com/" target="_blank"> youtube</a>
+<a href="https://www.google.com/" target="_top"> google</a>
+<hr>
+    <h1> Case :3 </h1>
+    <img src="mj.jpg" title="mj">
+    <img src="A.png" title="A">
+<hr>
+    <h1> Case :4 </h1>
+    <h2 class="one-header"> line 1</h2>
+    <h2 class="two-header"> line 2</h2>
+    <h2 class="three-header"> line 3</h2>
+<hr>
+     <h1> Case :5 </h1>
+    <h2 class="one-header"> line 1</h2>
+    <h2 class="two-header"> line 2</h2>
+    <h2 class="three-header"> line 3</h2>
+<hr>
+     <h1> Case :6 </h1>
+    <h2 class="one-header1"> line 1</h2>
+    <h2 class="two-header2"> line 2</h2>
+    <h2 class="three-header3"> line 3</h2>
+<hr>
+    <h1> Case :7 </h1>
+    <h2 class="pq"> line 1</h2>
+    <h2 class="xy"> line 2</h2>
+    <h2 class="zx"> line 3</h2>
+    <hr><hr><hr>
+
+
+</center>
+</body>
+</html>

@@ -1,0 +1,30 @@
+create table student_data(
+ID int unsigned not null auto_increment primary key,
+First_Name varchar(20) not null,
+Last_Name varchar(20) not null,
+City varchar(20) not null,
+Age int unsigned not null,
+Admission_Date date not null,
+Result enum('PASS','FAIL','AWAITED') not null default 'AWAITED'
+);
+
+INSERT INTO STUDENT_DATA(First_Name,Last_name,city,age,admission_date) values 
+('Akash','Kumar','Jaipur',24,'2020-03-28'),
+('Aaishwarya','Ray','Mumbai',32,'2020-05-29'),
+('Abhay','Chander','Mumbai',27,'2019-08-07'),
+('Anagha','Ahuja','Chennai',22,'2018-12-12'),
+('Bishwas','Bora','Ahmedabad',44,'2015-02-01'),
+('Bimla','Bhatt','Ahmedabad',21,'2021-03-21'),
+('Brijesh','Kumar','Jaipur',22,'2021-01-01'),
+('Arjun','Shet','Bangalore',19,'2020-12-31'),
+('Ramya','Bose','Bangalore',25,'2019-09-25'),
+('Sharanya','Ahuja','Mumbai',20,'2020-04-15'),
+('Suhas','Rai','Bangalore',27,'2016-05-14'),
+('Goutham','Sharma','Ahmedabad',26,'2020-07-20'),
+('Dilshan','Gupta','Jaipur',23,'2014-02-07'),
+('Sachin','Acharya','Bangalore',22,'2020-01-01'),
+('Tanveer','Ahmed','Chennai',23,'2019-05-09'),
+('Rupali','Gupta','Chennai',21,'2020-06-23'),
+('Deepika','Verma','Ahmedabad',26,'2017-08-22'),
+('Deepika','Chatterjee','Ahmedabad',29,'2020-11-05'),
+('Zhyn','Jackman','Banglore',24,'2019-06-22');
